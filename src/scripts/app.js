@@ -60,9 +60,34 @@ function create() {
   });
 
   character.x += 300;
-  // Set up the game world...
 }
 
-function update() {}
+function update() {
+  // Update the game state...
+
+  let cursors = this.input.keyboard.createCursorKeys();
+
+  if (cursors.left.isDown) {
+    character.anims.play('left', true); // Play 'left' animation
+    character.x -= 5;
+    direction = 'left';
+  } else if (cursors.right.isDown) {
+    character.anims.play('right', true); // Play 'left' animation
+    character.x += 5;
+    direction = 'right';
+  } else if (cursors.up.isDown) {
+    character.anims.play('up', true); // Play 'left' animation
+    character.y -= 5;
+    direction = 'up';
+  } else if (cursors.down.isDown) {
+    character.anims.play('down', true); // Play 'left' animation
+    character.y += 5;
+    direction = 'down';
+  } else {
+    character.anims.stop(); // Stop the animation
+    character.setTexture('character', idleDirection(direction)); // Set a specific frame for idle state
+  }
+  //winning condition was met{load map 2}
+}
 
 const game = new Phaser.Game(config);
