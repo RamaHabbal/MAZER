@@ -18,9 +18,16 @@ const config = {
   },
 };
 
-function preload() {}
+function preload() {
+  this.load.spritesheet('character', './src/images/spritesheet.png', {
+    frameWidth: 48,
+    frameHeight: 48,
+  });
+}
 
-function create() {}
+function create() {
+  this.cameras.main.setBackgroundColor('#0000FF');
+}
 
 function update() {}
 
