@@ -23,13 +23,13 @@ let direction;
 function idleDirection(direction) {
   switch (direction) {
     case 'up':
-      return 11;
+      return 10;
     case 'down':
-      return 2;
+      return 1;
     case 'left':
       return 4;
     case 'right':
-      return 8;
+      return 7;
   }
 }
 
@@ -50,26 +50,26 @@ function create() {
 
   this.anims.create({
     key: 'up',
-    frames: this.anims.generateFrameNumbers('character', { start: 1, end: 1 }),
+    frames: this.anims.generateFrameNumbers('character', { start: 9, end: 11 }),
     frameRate: 10,
     repeat: -1,
   });
   this.anims.create({
     key: 'down',
-    frames: this.anims.generateFrameNumbers('character', { start: 1, end: 3 }),
+    frames: this.anims.generateFrameNumbers('character', { start: 0, end: 2 }),
     frameRate: 10,
     repeat: -1,
   });
   this.anims.create({
     key: 'left',
-    frames: this.anims.generateFrameNumbers('character', { start: 1, end: 3 }),
+    frames: this.anims.generateFrameNumbers('character', { start: 3, end: 5 }),
     frameRate: 10,
     repeat: -1,
   });
 
   this.anims.create({
     key: 'right',
-    frames: this.anims.generateFrameNumbers('character', { start: 5, end: 8 }),
+    frames: this.anims.generateFrameNumbers('character', { start: 6, end: 8 }),
     frameRate: 10,
     repeat: -1,
   });
