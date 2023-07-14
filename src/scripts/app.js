@@ -17,9 +17,24 @@ const config = {
     },
   },
 };
+let character;
+let direction;
+
+function idleDirection(direction) {
+  switch (direction) {
+    case 'up':
+      return 11;
+    case 'down':
+      return 2;
+    case 'left':
+      return 4;
+    case 'right':
+      return 8;
+  }
+}
 
 function preload() {
-  this.load.spritesheet('character', './src/images/spritesheet.png', {
+  this.load.spritesheet('character', './src/assets/images/spritesheet.png', {
     frameWidth: 48,
     frameHeight: 48,
   });
