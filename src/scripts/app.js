@@ -27,6 +27,40 @@ function preload() {
 
 function create() {
   this.cameras.main.setBackgroundColor('#0000FF');
+  character = this.physics.add.sprite(48, 48, 'character');
+  this.physics.world.setBoundsCollision(true, true, true, true);
+  character.setCollideWorldBounds(true);
+
+  character.setInteractive();
+
+  this.anims.create({
+    key: 'up',
+    frames: this.anims.generateFrameNumbers('character', { start: 1, end: 1 }),
+    frameRate: 10,
+    repeat: -1,
+  });
+  this.anims.create({
+    key: 'down',
+    frames: this.anims.generateFrameNumbers('character', { start: 1, end: 3 }),
+    frameRate: 10,
+    repeat: -1,
+  });
+  this.anims.create({
+    key: 'left',
+    frames: this.anims.generateFrameNumbers('character', { start: 1, end: 3 }),
+    frameRate: 10,
+    repeat: -1,
+  });
+
+  this.anims.create({
+    key: 'right',
+    frames: this.anims.generateFrameNumbers('character', { start: 5, end: 8 }),
+    frameRate: 10,
+    repeat: -1,
+  });
+
+  character.x += 300;
+  // Set up the game world...
 }
 
 function update() {}
