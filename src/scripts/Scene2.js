@@ -87,12 +87,8 @@ class Scene2 extends Phaser.Scene {
         video1.scale = 0.6;
         video1.play(true,0,15);   
        
-        let text1=this.add.text(0,0,"MAZER",{
-        font:"150px",
-        fill:"white"
-        
-        }).setOrigin(-0.5,0);
-        
+        let img = this.add.image(450,200,'image', './src/assets/images/logomaze.png').setDisplaySize(400,150);
+
         
         const startgame = new Button(this.cameras.main.centerX, 370, 'Start Game', this, () => this.scene.start("Gaming"));
         
