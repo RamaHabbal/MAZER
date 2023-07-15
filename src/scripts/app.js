@@ -20,7 +20,7 @@ const config = {
 
 let character;
 let direction;
-let wall_11, wall_1;
+let wall_1, wall_2, wall_3, wall_4, wall_5, wall_11;
 let up_right = 0;
 let up_left = 0;
 let down_right = 0;
@@ -51,8 +51,8 @@ function preload() {
   });
 
   this.load.spritesheet('wall_2', './src/assets/images/wall_h.png', {
-    frameWidth: 50,
-    frameHeight: 150,
+    frameWidth: 350,
+    frameHeight: 40,
   });
 }
 
@@ -60,6 +60,9 @@ function create() {
   this.cameras.main.setBackgroundColor('#0000FF');
   character = this.physics.add.sprite(0, 50, 'character'); 
   wall_1 = this.physics.add.sprite(70, 55, 'wall_1'); 
+  wall_2 = this.physics.add.sprite(0, 190, 'wall_2');
+  wall_3 = this.physics.add.sprite(155, 115, 'wall_1');
+  wall_4 = this.physics.add.sprite(225, 115, 'wall_1');
   wall_11 = this.physics.add.sprite(300, 55, 'wall_1');
   this.physics.world.setBoundsCollision(true, true, true, true);
   character.setCollideWorldBounds(true);
@@ -73,7 +76,7 @@ function create() {
   });
   this.anims.create({
     key: 'down',
-    frames: this.anims.generateFrameNumbers('character', { start: 1, end: 2 }),
+    frames: this.anims.generateFrameNumbers('character', { start: 0, end: 2 }),
     frameRate: 10,
     repeat: -1,
   });
@@ -113,7 +116,7 @@ function update() {
   
   let cursors = this.input.keyboard.createCursorKeys();
 
-  //console.log("X: " +  character.x);
+  console.log("X: " +  character.x);
   //console.log("Y: " +  character.y);
 
   let allowed_up = true;
@@ -121,15 +124,15 @@ function update() {
   let allowed_right = true;
   let allowed_left = true;
   
-  if(character.x > 270 && character.x < 343 && character.y < 150) {
+  if(character.x > 285 && character.x < 339 && character.y < 150) {
     allowed_right = false
   }
 
-  if(character.x > 274 && character.x < 343 && character.y < 155) {
+  if(character.x > 285 && character.x < 339 && character.y < 155) {
     allowed_up = false
   }
 
-  if(character.x > 274 && character.x < 345 && character.y < 150) {
+  if(character.x > 285 && character.x < 339 && character.y < 150) {
     allowed_left = false
   }
 
