@@ -75,11 +75,15 @@ class Scene1 extends Phaser.Scene {
 
     this.character.x += 300;
 
-    let TILESIZE = 30;
-    const vTiles = Math.floor(this.game.config.height / TILESIZE - 1);
-    const hTiles = Math.floor(this.game.config.width / TILESIZE - 1);
-    const mapHeight = Math.floor((vTiles - 1) / 2);
-    const mapWidth = Math.floor((hTiles - 1) / 2);
+    let TILESIZE = 45;
+    // const vTiles = Math.floor(this.game.config.height / TILESIZE - 1);
+    // const hTiles = Math.floor(this.game.config.width / TILESIZE - 1);
+    const vTiles = 10;
+    const hTiles = 20;
+    // const mapHeight = Math.floor((vTiles - 1) / 2);
+    // const mapWidth = Math.floor((hTiles - 1) / 2);
+    const mapHeight = 5;
+    const mapWidth = 10;
     // Creates a maze object to make mazes of 10x10 cells
     const maze = new Maze(mapHeight, mapWidth);
     // Maze start in position: column 0, row 1
