@@ -1,16 +1,16 @@
 let character;
-let direction;
+let direction='down';
  function idleDirection(direction){
     switch (direction) {
       case 'up':
-        return 11;
+        return 10;
       case 'down':
-        return 2;
-      case 'left':
-        return 4;
-      case 'right':
-        return 8;
         return 1;
+      case 'left':
+        return 3;
+      case 'right':
+        return 7;
+        
     }
   }
 class Scene3 extends Phaser.Scene {
@@ -63,30 +63,56 @@ class Scene3 extends Phaser.Scene {
     update() {
         // Update the game state...
         let cursors = this.input.keyboard.createCursorKeys();
-            // let movementup = cursors.up.isDown;
-            // let movementdown = cursors.down.isDown;
-            // let movementleft = cursors.left.isDown;
-            // let movementright = cursors.right.isDown;
-            // this is to properly create movement.
-        if (cursors.up.isDown) {
+        let movementup = cursors.up.isDown;
+        let movementdown = cursors.down.isDown;
+        let movementleft = cursors.left.isDown;
+        let movementright = cursors.right.isDown;
+            
+        if (movementup) {
             
             character.anims.play('up', true); // Play 'up' animation
-            character.y -= 10;
+            character.y -= 3;
             direction = 'up';
-        }else if (cursors.down.isDown) {
+            if (movementright) {
+            
+                character.anims.play('right', true); // Play 'right' animation
+                character.x += 3;
+                direction = 'right';
+                }
+            if (movementleft) {
+                    character.anims.play('left', true); // Play 'left' animation
+                    character.x -= 3;
+                    direction = 'left';
+                }
+        }
+        else if (movementdown) {
             character.anims.play('down', true); // Play 'down' animation
-            character.y += 10;
+            character.y += 3;
             direction = 'down';
-        }else if (cursors.left.isDown) {
+            if (movementright) {
+            
+                character.anims.play('right', true); // Play 'right' animation
+                character.x += 3;
+                direction = 'right';
+                }
+            if (movementleft) {
+                    character.anims.play('left', true); // Play 'left' animation
+                    character.x -= 3;
+                    direction = 'left';
+                }
+        }
+        else if (movementleft) {
         character.anims.play('left', true); // Play 'left' animation
-        character.x -= 10;
+        character.x -= 3;
         direction = 'left';
-        } else if (cursors.right.isDown) {
+        }
+        else if (movementright) {
             
         character.anims.play('right', true); // Play 'right' animation
-        character.x += 10;
+        character.x += 3;
         direction = 'right';
-        } else {
+        } 
+        else {
         character.anims.stop(); // Stop the animation
         character.setTexture('character', idleDirection(direction)); // Set a specific frame for idle state
         }
