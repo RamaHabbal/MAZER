@@ -12,7 +12,9 @@ class Scene1 extends Phaser.Scene {
               frameWidth: 48,
               frameHeight: 48,
             });
-          
+        
+        
+
     //this.load.audio
     //in other scenes;
     //then this.sound.add
