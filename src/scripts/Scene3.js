@@ -1,5 +1,6 @@
 let character;
 let direction='down';
+
  function idleDirection(direction){
     switch (direction) {
       case 'up':
@@ -13,16 +14,17 @@ let direction='down';
         
     }
   }
+  
 class Scene3 extends Phaser.Scene {
     constructor(){
         super("Gaming");
     }
 
-   
+
 
       
     create(){
-        this.cameras.main.setBackgroundColor('#0000FF');
+        this.cameras.main.setBackgroundColor('#C7671B');
         character = this.physics.add.sprite(48, 48, 'character');
         this.physics.world.setBoundsCollision(true, true, true, true);
         character.setCollideWorldBounds(true);
@@ -58,8 +60,20 @@ class Scene3 extends Phaser.Scene {
         character.x += 300;
         const menu = new Button(70, 40, 'Menu', this, () => this.scene.start("playGame"));
 
-      
+ 
+
+
+
+        //this.physics.add.collider(this.projectiles,this.powerUps)
+        //projectile.destroy();
+        //overlap
+
 }
+
+
+
+
+
     update() {
         // Update the game state...
         let cursors = this.input.keyboard.createCursorKeys();
