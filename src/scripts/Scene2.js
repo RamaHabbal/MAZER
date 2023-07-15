@@ -76,7 +76,6 @@ class Scene2 extends Phaser.Scene {
         
         const audio = this.sound.add('audio', { loop: true, autoplay: true});
         audio.play();
-        console.log(this.sound.locked)
        
         let text1=this.add.text(0,0,"MAZER",{
         font:"150px",
