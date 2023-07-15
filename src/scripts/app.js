@@ -20,7 +20,7 @@ const config = {
 
 let character;
 let direction;
-let wall_1;
+let wall_11, wall_1;
 let up_right = 0;
 let up_left = 0;
 let down_right = 0;
@@ -45,7 +45,12 @@ function preload() {
     frameHeight: 48,
   });
   
-  this.load.spritesheet('wall_1', './src/assets/images/wall.png', {
+  this.load.spritesheet('wall_1', './src/assets/images/wall_v.png', {
+    frameWidth: 40,
+    frameHeight: 150,
+  });
+
+  this.load.spritesheet('wall_2', './src/assets/images/wall_h.png', {
     frameWidth: 50,
     frameHeight: 150,
   });
@@ -53,8 +58,9 @@ function preload() {
 
 function create() {
   this.cameras.main.setBackgroundColor('#0000FF');
-  character = this.physics.add.sprite(0, 50, 'character');  
-  wall_1 = this.physics.add.sprite(300, 55, 'wall_1');
+  character = this.physics.add.sprite(0, 50, 'character'); 
+  wall_1 = this.physics.add.sprite(70, 55, 'wall_1'); 
+  wall_11 = this.physics.add.sprite(300, 55, 'wall_1');
   this.physics.world.setBoundsCollision(true, true, true, true);
   character.setCollideWorldBounds(true);
   character.setInteractive();
@@ -93,13 +99,13 @@ function create() {
   //wall_1.setCollideWorldBounds(true);
   //wall_1.setInteractive();
 
-  this.physics.add.existing(character, true);
+  //this.physics.add.existing(character, true);
 
   //wall_1.body.allowGravity = false;
-  character.body.allowGravity = false;
+  //character.body.allowGravity = false;
 
   //wall_1.body.immovable = true;
-  character.body.immovable = true;
+  //character.body.immovable = true;
 }
 
 function update() {
@@ -115,11 +121,11 @@ function update() {
   let allowed_right = true;
   let allowed_left = true;
   
-  if(character.x > 270 && character.x < 344 && character.y < 150) {
+  if(character.x > 270 && character.x < 343 && character.y < 150) {
     allowed_right = false
   }
 
-  if(character.x > 274 && character.x < 344 && character.y < 155) {
+  if(character.x > 274 && character.x < 343 && character.y < 155) {
     allowed_up = false
   }
 
@@ -197,7 +203,7 @@ function update() {
         down_left++;
       }
     } else {
-      if (allowed_down) {
+      if (allowed_left) {
         character.anims.play('left', true); // Play 'left' animation
         character.x -= 5;
         direction = 'left';
