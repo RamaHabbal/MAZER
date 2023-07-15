@@ -34,7 +34,7 @@ function idleDirection(direction) {
 }
 
 function preload() {
-  this.load.spritesheet('character', './src/images/spritesheet.png', {
+  this.load.spritesheet('character', './src/assets/images/spritesheet.png', {
     frameWidth: 48,
     frameHeight: 48,
   });

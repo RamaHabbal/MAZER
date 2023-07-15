@@ -8,7 +8,7 @@
 
 Html,
 body {
-  width: 100%;
+  width: 100vw;
   height: 100%;
 }
 .main-container {
@@ -20,11 +20,11 @@ body {
   min-height: 100vh;
   width: 100%;
 }
-
 .moonlit {
   background-image: url('../assets/images/landing-page/Sky.png');
-  background-position: 50% 50%;
+  background-position: center center;
   background-size: cover;
+  bac
 }
 .forest {
   margin-top: -200px;
@@ -33,7 +33,7 @@ body {
   height: 100vh;
   width: 100%;
   background-image: url('../assets/images/landing-page/Forest.png');
-  background-position: 50% 50%;
+  background-position: center center;
   background-size: cover;
 }
 .logo {
@@ -42,7 +42,6 @@ body {
   width: 500px;
   top: 40%;
   left: 50%;
-
   animation: float 5s ease-in-out infinite;
 }
 
