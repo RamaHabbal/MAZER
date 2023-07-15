@@ -80,33 +80,33 @@ let last_mouse = {};
 //   false
 // );
 
-// function init(elemid) {
-//   let canvas = document.getElementById(elemid),
-//     c = canvas.getContext('2d'),
-//     w = (canvas.width = window.innerWidth),
-//     h = (canvas.height = window.innerHeight);
-//   c.fillStyle = 'rgba(30, 30, 30, 1)';
-//   c.fillRect(0, 0, w, h);
-//   return c;
-// }
-// window.requestAnimationFrame = function () {
-//   return (
-//     window.requestAnimationFrame ||
-//     function (callback) {
-//       window.setTimeout(callback);
-//     }
-//   );
-// };
+function init(elemid) {
+  let canvas = document.getElementById(elemid),
+    c = canvas.getContext('2d'),
+    w = (canvas.width = window.innerWidth),
+    h = (canvas.height = window.innerHeight);
+  c.fillStyle = 'rgba(30, 30, 30, 1)';
+  c.fillRect(0, 0, w, h);
+  return c;
+}
+window.requestAnimationFrame = function () {
+  return (
+    window.requestAnimationFrame ||
+    function (callback) {
+      window.setTimeout(callback);
+    }
+  );
+};
 
-// function loop() {
-//   window.requestAnimationFrame(loop);
-//   c.clearRect(0, 0, w, h);
-//   draw();
-// }
-// window.addEventListener('resize', function () {
-//   (w = canvas.width = window.innerWidth),
-//     (h = canvas.height = window.innerHeight);
-//   loop();
-// });
-// loop();
-// setInterval(loop, 1000 / 60);
+function loop() {
+  window.requestAnimationFrame(loop);
+  c.clearRect(0, 0, w, h);
+  draw();
+}
+window.addEventListener('resize', function () {
+  (w = canvas.width = window.innerWidth),
+    (h = canvas.height = window.innerHeight);
+  loop();
+});
+loop();
+setInterval(loop, 1000 / 60);
