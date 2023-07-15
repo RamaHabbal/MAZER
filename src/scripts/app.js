@@ -17,8 +17,10 @@ const config = {
     },
   },
 };
+
 let character;
 let direction;
+let wall_1;
 
 function idleDirection(direction) {
   switch (direction) {
@@ -38,14 +40,19 @@ function preload() {
     frameWidth: 48,
     frameHeight: 48,
   });
+  
+  this.load.spritesheet('wall_1', './src/assets/images/wall.png', {
+    frameWidth: 50,
+    frameHeight: 150,
+  });
 }
 
 function create() {
   this.cameras.main.setBackgroundColor('#0000FF');
-  character = this.physics.add.sprite(48, 48, 'character');
+  character = this.physics.add.sprite(0, 50, 'character');  
+  wall_1 = this.physics.add.sprite(300, 55, 'wall_1');
   this.physics.world.setBoundsCollision(true, true, true, true);
   character.setCollideWorldBounds(true);
-
   character.setInteractive();
 
   this.anims.create({
@@ -56,7 +63,7 @@ function create() {
   });
   this.anims.create({
     key: 'down',
-    frames: this.anims.generateFrameNumbers('character', { start: 0, end: 2 }),
+    frames: this.anims.generateFrameNumbers('character', { start: 1, end: 2 }),
     frameRate: 10,
     repeat: -1,
   });
@@ -74,7 +81,21 @@ function create() {
     repeat: -1,
   });
 
-  character.x += 300;
+  character.x += 0;
+  
+  //this.physics.add.collider(wall_1, character);
+  //this.physics.add.collider(wall_1, c);
+
+  //wall_1.setCollideWorldBounds(true);
+  //wall_1.setInteractive();
+
+  this.physics.add.existing(character, true);
+
+  //wall_1.body.allowGravity = false;
+  character.body.allowGravity = false;
+
+  //wall_1.body.immovable = true;
+  character.body.immovable = true;
 }
 
 function update() {
@@ -82,27 +103,103 @@ function update() {
 
   let cursors = this.input.keyboard.createCursorKeys();
 
-  if (cursors.left.isDown) {
-    character.anims.play('left', true); // Play 'left' animation
-    character.x -= 5;
-    direction = 'left';
-  } else if (cursors.right.isDown) {
-    character.anims.play('right', true); // Play 'left' animation
-    character.x += 5;
-    direction = 'right';
-  } else if (cursors.up.isDown) {
-    character.anims.play('up', true); // Play 'left' animation
-    character.y -= 5;
-    direction = 'up';
-  } else if (cursors.down.isDown) {
-    character.anims.play('down', true); // Play 'left' animation
-    character.y += 5;
-    direction = 'down';
+  console.log("X: " +  character.x);
+  console.log("Y: " +  character.y);
+
+  let allowed_up = true;
+  let allowed_down = true;
+  let allowed_right = true;
+  let allowed_left = true;
+  
+  if(character.x > 270 && character.x < 344 && character.y < 150) {
+    allowed_right = false
+  }
+
+  if(character.x > 274 && character.x < 344 && character.y < 155) {
+    allowed_up = false
+  }
+
+  if(character.x > 274 && character.x < 345 && character.y < 150) {
+    allowed_left = false
+  }
+
+  if(cursors.left.isDown) {
+    if (allowed_left) {
+      character.anims.play('left', true); // Play 'left' animation
+      character.x -= 10;
+      direction = 'left';
+    }
+  }
+  if(cursors.right.isDown) {
+    if (allowed_right) {
+      character.anims.play('right', true); // Play 'right' animation
+      character.x += 10;
+      direction = 'right';
+    }
+  }
+  if(cursors.up.isDown) {
+    if (allowed_up) {
+      character.anims.play('up', true); // Play 'up' animation
+      character.y -= 10;
+      direction = 'up';
+    }
+  }
+  if(cursors.down.isDown) {
+    if (allowed_down) {
+      character.anims.play('down', true); // Play 'down' animation
+      character.y += 10;
+      direction = 'down';
+    }
   } else {
     character.anims.stop(); // Stop the animation
     character.setTexture('character', idleDirection(direction)); // Set a specific frame for idle state
   }
   //winning condition was met{load map 2}
+
+  /*if (cursors.up.isDown) {
+    character.anims.play('up', true); // Play 'up' animation
+    character.y -= 10;
+    direction = 'up';
+  } else if (cursors.down.isDown) {
+    character.anims.play('down', true); // Play 'down' animation
+    character.y += 10;
+    direction = 'down';
+  } else if (cursors.up.isDown && cursors.right.isDown) {
+    character.anims.play('up', true); // Play 'up' animation
+    character.y -= 10;
+    direction = 'up';
+
+    character.anims.play('right', true); // Play 'right' animation
+    character.x += 10;
+    direction = 'right';
+  } else if (cursors.up.isDown && cursors.left.isDown) {
+    character.anims.play('up', true); // Play 'up' animation
+    character.y -= 10;
+    direction = 'up';
+
+    character.anims.play('left', true); // Play 'left' animation
+    character.x += 10;
+    direction = 'left';
+  } else if (cursors.down.isDown && cursors.right.isDown) {
+    character.anims.play('down', true); // Play 'down' animation
+    character.y -= 10;
+    direction = 'down';
+
+    character.anims.play('right', true); // Play 'right' animation
+    character.x += 10;
+    direction = 'right';
+  } else if (cursors.down.isDown && cursors.left.isDown) {
+    character.anims.play('down', true); // Play 'down' animation
+    character.y -= 10;
+    direction = 'down';
+
+    character.anims.play('left', true); // Play 'left' animation
+    character.x += 10;
+    direction = 'left';
+  } else {
+    character.anims.stop(); // Stop the animation
+    character.setTexture('character', idleDirection(direction)); // Set a specific frame for idle state
+  }*/
 }
 
 const game = new Phaser.Game(config);
