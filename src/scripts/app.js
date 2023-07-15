@@ -21,6 +21,10 @@ const config = {
 let character;
 let direction;
 let wall_1;
+let up_right = 0;
+let up_left = 0;
+let down_right = 0;
+let down_left = 0;
 
 function idleDirection(direction) {
   switch (direction) {
@@ -100,11 +104,11 @@ function create() {
 
 function update() {
   // Update the game state...
-
+  
   let cursors = this.input.keyboard.createCursorKeys();
 
-  console.log("X: " +  character.x);
-  console.log("Y: " +  character.y);
+  //console.log("X: " +  character.x);
+  //console.log("Y: " +  character.y);
 
   let allowed_up = true;
   let allowed_down = true;
@@ -123,83 +127,114 @@ function update() {
     allowed_left = false
   }
 
-  if(cursors.left.isDown) {
-    if (allowed_left) {
-      character.anims.play('left', true); // Play 'left' animation
-      character.x -= 10;
-      direction = 'left';
-    }
-  }
-  if(cursors.right.isDown) {
-    if (allowed_right) {
-      character.anims.play('right', true); // Play 'right' animation
-      character.x += 10;
-      direction = 'right';
-    }
-  }
-  if(cursors.up.isDown) {
-    if (allowed_up) {
-      character.anims.play('up', true); // Play 'up' animation
-      character.y -= 10;
-      direction = 'up';
-    }
-  }
-  if(cursors.down.isDown) {
-    if (allowed_down) {
-      character.anims.play('down', true); // Play 'down' animation
-      character.y += 10;
-      direction = 'down';
-    }
-  } else {
-    character.anims.stop(); // Stop the animation
-    character.setTexture('character', idleDirection(direction)); // Set a specific frame for idle state
-  }
-  //winning condition was met{load map 2}
+  if (cursors.up.isDown && cursors.right.isDown) {
+    if (up_right % 2 == 0) {
+      if (allowed_up) {
+        character.anims.play('up', true); // Play 'up' animation
+        character.y -= 20;
+        direction = 'up';
 
-  /*if (cursors.up.isDown) {
-    character.anims.play('up', true); // Play 'up' animation
-    character.y -= 10;
-    direction = 'up';
-  } else if (cursors.down.isDown) {
-    character.anims.play('down', true); // Play 'down' animation
-    character.y += 10;
-    direction = 'down';
-  } else if (cursors.up.isDown && cursors.right.isDown) {
-    character.anims.play('up', true); // Play 'up' animation
-    character.y -= 10;
-    direction = 'up';
+        up_right++;
+      }
+    } else {
+      if (allowed_right) {
+        character.anims.play('right', true); // Play 'right' animation
+        character.x += 20;
+        direction = 'right';
 
-    character.anims.play('right', true); // Play 'right' animation
-    character.x += 10;
-    direction = 'right';
+        up_right++;
+      }
+    }
+
+    console.log("up_right: " + up_right);
   } else if (cursors.up.isDown && cursors.left.isDown) {
-    character.anims.play('up', true); // Play 'up' animation
-    character.y -= 10;
-    direction = 'up';
+    if (up_left % 2 == 0) {
+      if (allowed_up) {
+        character.anims.play('up', true); // Play 'up' animation
+        character.y -= 20;
+        direction = 'up';
 
-    character.anims.play('left', true); // Play 'left' animation
-    character.x += 10;
-    direction = 'left';
+        up_left++;
+      }
+    } else {
+      if (allowed_left) {
+        character.anims.play('left', true); // Play 'left' animation
+        character.x -= 20;
+        direction = 'left';
+
+        up_left++;
+      }
+    }
+
+    console.log("up_left: " + up_left);
   } else if (cursors.down.isDown && cursors.right.isDown) {
-    character.anims.play('down', true); // Play 'down' animation
-    character.y -= 10;
-    direction = 'down';
+    if (down_right % 2 == 0) {
+      if (allowed_down) {
+        character.anims.play('down', true); // Play 'down' animation
+        character.y += 20;
+        direction = 'down';
 
-    character.anims.play('right', true); // Play 'right' animation
-    character.x += 10;
-    direction = 'right';
+        down_right++;
+      }
+    } else {
+      if (allowed_right) {
+        character.anims.play('right', true); // Play 'right' animation
+        character.x += 20;
+        direction = 'right';
+
+        down_right++;
+      }
+    }
+
+    console.log("down_right: " + down_right);
   } else if (cursors.down.isDown && cursors.left.isDown) {
-    character.anims.play('down', true); // Play 'down' animation
-    character.y -= 10;
-    direction = 'down';
+    if (down_left % 2 == 0) {
+      if (allowed_down) {
+        character.anims.play('down', true); // Play 'down' animation
+        character.y += 20;
+        direction = 'down';
 
-    character.anims.play('left', true); // Play 'left' animation
-    character.x += 10;
-    direction = 'left';
-  } else {
-    character.anims.stop(); // Stop the animation
-    character.setTexture('character', idleDirection(direction)); // Set a specific frame for idle state
-  }*/
+        down_left++;
+      }
+    } else {
+      if (allowed_down) {
+        character.anims.play('left', true); // Play 'left' animation
+        character.x -= 20;
+        direction = 'left';
+
+        down_left++;
+      }
+    }
+
+    console.log("down_left: " + down_left);
+  } else if (cursors.left.isDown) {
+      if (allowed_left) {
+        character.anims.play('left', true); // Play 'left' animation
+        character.x -= 10;
+        direction = 'left';
+      }
+    } else if (cursors.right.isDown) {
+      if (allowed_right) {
+        character.anims.play('right', true); // Play 'right' animation
+        character.x += 10;
+        direction = 'right';
+      }
+    } else if(cursors.up.isDown) {
+      if (allowed_up) {
+        character.anims.play('up', true); // Play 'up' animation
+        character.y -= 10;
+        direction = 'up';
+      }
+    } else if(cursors.down.isDown) {
+      if (allowed_down) {
+        character.anims.play('down', true); // Play 'down' animation
+        character.y += 10;
+        direction = 'down';
+      }
+    } else {
+      character.anims.stop(); // Stop the animation
+      character.setTexture('character', idleDirection(direction)); // Set a specific frame for idle state
+  }
 }
 
 const game = new Phaser.Game(config);
