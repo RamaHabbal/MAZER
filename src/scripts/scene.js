@@ -23,6 +23,8 @@ class Scene1 extends Phaser.Scene {
       frameWidth: 48,
       frameHeight: 48,
     });
+    this.load.image('wall', './src/assets/images/wall.jpeg');
+    this.load.image('ground', './src/assets/images/ground.jpeg');
   }
 
   create() {
@@ -73,22 +75,31 @@ class Scene1 extends Phaser.Scene {
 
     this.character.x += 300;
 
+    let TILESIZE = 30;
+    const vTiles = Math.floor(this.game.config.height / TILESIZE - 1);
+    const hTiles = Math.floor(this.game.config.width / TILESIZE - 1);
+    const mapHeight = Math.floor((vTiles - 1) / 2);
+    const mapWidth = Math.floor((hTiles - 1) / 2);
     // Creates a maze object to make mazes of 10x10 cells
-    const maze = new Maze(10, 10);
+    const maze = new Maze(mapHeight, mapWidth);
     // Maze start in position: column 0, row 1
     maze.gateway(0, 1);
     // Maze exit in position: last column, row 7
-    maze.gateway(10 - 1, 7);
+    maze.gateway(mapWidth - 1, mapHeight);
     // Creates the array of rows of tiles
-
-    let TILESIZE = 32;
-    const vTiles = Math.floor(this.game.config.height / TILESIZE - 1);
-    const hTiles = Math.floor(this.game.config.width / TILESIZE - 1);
-    const x = Math.round((this.game.config.width - TILESIZE * hTiles) / 2);
-    const y = Math.round((this.game.config.height - TILESIZE * vTiles) / 2);
     let mazeMap = maze.tiles();
 
-    this.renderTiles(x, y, mazeMap, 32);
+    const x = Math.round((this.game.config.width - TILESIZE * hTiles) / 2);
+    const y = Math.round((this.game.config.height - TILESIZE * vTiles) / 2);
+
+    this.renderTiles(x, y, mazeMap, TILESIZE);
+  }
+  swapZeros(arr) {
+    arr.forEach((row, i) => {
+      row.forEach((v, i, a) => {
+        a[i] = a[i] ? 0 : 1;
+      });
+    });
   }
   renderTiles(x, y, maze, tilesize) {
     const width = tilesize * maze[0].length;
@@ -107,9 +118,14 @@ class Scene1 extends Phaser.Scene {
 
     // Floor
     this.swapZeros(maze); // swaps 0 - 1
-    let map = this.make.tilemap({ data: maze, tileWidth: 50, tileHeight: 50 });
-    let floorTile = map.addTilesetImage('floor');
-    let floorLayer = map.createDynamicLayer(0, floorTile, x, y);
+    let floorMap = this.make.tilemap({
+      data: maze,
+      tileWidth: 50,
+      tileHeight: 50,
+    });
+    let floorTile = floorMap.addTilesetImage('ground');
+    let floorLayer = floorMap.createDynamicLayer(0, floorTile, x, y);
+
     floorLayer.setDisplaySize(width, height);
 
     // Shadows
@@ -121,9 +137,6 @@ class Scene1 extends Phaser.Scene {
 
     // Move walls to front
     wallsLayer.setDepth(rt.depth + 1);
-
-    // Renders solution
-    this.renderSolution(map);
   }
 
   update() {
