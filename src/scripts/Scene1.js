@@ -12,9 +12,11 @@ class Scene1 extends Phaser.Scene {
               frameWidth: 48,
               frameHeight: 48,
             });
-        
-        
 
+        this.load.image('wall', './src/assets/images/wall.jpeg');
+        this.load.image('ground', './src/assets/images/ground.jpeg');
+  
+          
     //this.load.audio
     //in other scenes;
     //then this.sound.add
@@ -27,7 +29,7 @@ class Scene1 extends Phaser.Scene {
 
     create(){
         this.add.text(20,20,"Loading game...");
-        this.scene.start("playGame");
+        this.scene.start("Menu");
        
     }
 
