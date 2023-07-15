@@ -131,7 +131,7 @@ function update() {
     if (up_right % 2 == 0) {
       if (allowed_up) {
         character.anims.play('up', true); // Play 'up' animation
-        character.y -= 20;
+        character.y -= 5;
         direction = 'up';
 
         up_right++;
@@ -139,7 +139,7 @@ function update() {
     } else {
       if (allowed_right) {
         character.anims.play('right', true); // Play 'right' animation
-        character.x += 20;
+        character.x += 5;
         direction = 'right';
 
         up_right++;
@@ -151,7 +151,7 @@ function update() {
     if (up_left % 2 == 0) {
       if (allowed_up) {
         character.anims.play('up', true); // Play 'up' animation
-        character.y -= 20;
+        character.y -= 5;
         direction = 'up';
 
         up_left++;
@@ -159,7 +159,7 @@ function update() {
     } else {
       if (allowed_left) {
         character.anims.play('left', true); // Play 'left' animation
-        character.x -= 20;
+        character.x -= 5;
         direction = 'left';
 
         up_left++;
@@ -171,7 +171,7 @@ function update() {
     if (down_right % 2 == 0) {
       if (allowed_down) {
         character.anims.play('down', true); // Play 'down' animation
-        character.y += 20;
+        character.y += 5;
         direction = 'down';
 
         down_right++;
@@ -179,7 +179,7 @@ function update() {
     } else {
       if (allowed_right) {
         character.anims.play('right', true); // Play 'right' animation
-        character.x += 20;
+        character.x += 5;
         direction = 'right';
 
         down_right++;
@@ -191,7 +191,7 @@ function update() {
     if (down_left % 2 == 0) {
       if (allowed_down) {
         character.anims.play('down', true); // Play 'down' animation
-        character.y += 20;
+        character.y += 5;
         direction = 'down';
 
         down_left++;
@@ -199,7 +199,7 @@ function update() {
     } else {
       if (allowed_down) {
         character.anims.play('left', true); // Play 'left' animation
-        character.x -= 20;
+        character.x -= 5;
         direction = 'left';
 
         down_left++;
@@ -210,25 +210,25 @@ function update() {
   } else if (cursors.left.isDown) {
       if (allowed_left) {
         character.anims.play('left', true); // Play 'left' animation
-        character.x -= 10;
+        character.x -= 5;
         direction = 'left';
       }
     } else if (cursors.right.isDown) {
       if (allowed_right) {
         character.anims.play('right', true); // Play 'right' animation
-        character.x += 10;
+        character.x += 5;
         direction = 'right';
       }
     } else if(cursors.up.isDown) {
       if (allowed_up) {
         character.anims.play('up', true); // Play 'up' animation
-        character.y -= 10;
+        character.y -= 5;
         direction = 'up';
       }
     } else if(cursors.down.isDown) {
       if (allowed_down) {
         character.anims.play('down', true); // Play 'down' animation
-        character.y += 10;
+        character.y += 5;
         direction = 'down';
       }
     } else {
