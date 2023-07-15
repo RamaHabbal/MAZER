@@ -86,15 +86,19 @@ function update() {
     character.anims.play('left', true); // Play 'left' animation
     character.x -= 5;
     direction = 'left';
-  } else if (cursors.right.isDown) {
+  }
+  if (cursors.right.isDown) {
     character.anims.play('right', true); // Play 'left' animation
     character.x += 5;
     direction = 'right';
-  } else if (cursors.up.isDown) {
+  }
+  if (cursors.up.isDown) {
     character.anims.play('up', true); // Play 'left' animation
     character.y -= 5;
     direction = 'up';
-  } else if (cursors.down.isDown) {
+  }
+  if (cursors.down.isDown) {
+    console.log(character.anims);
     character.anims.play('down', true); // Play 'left' animation
     character.y += 5;
     direction = 'down';
