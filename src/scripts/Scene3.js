@@ -91,6 +91,7 @@ class Scene3 extends Phaser.Scene {
   
       // Move walls to front
       wallsLayer.setDepth(rt.depth + 1);
+      console.log("ss: " + wallsLayer.depth)
   
 
         this.cameras.main.setBackgroundColor('#C7671B');
