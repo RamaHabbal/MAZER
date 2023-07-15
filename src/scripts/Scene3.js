@@ -47,6 +47,10 @@ class Scene3 extends Phaser.Scene {
     
         this.renderTiles(x, y, mazeMap, TILESIZE);
 
+        this.cameras.main.setBounds(0,0,860,640);
+        this.cameras.main.startFollow(character);
+        this.cameras.main.setZoom(1.3);
+
     }
     swapZeros(arr) {
       arr.forEach((row, i) => {
@@ -69,6 +73,8 @@ class Scene3 extends Phaser.Scene {
       let wallTile = wallsMap.addTilesetImage('wall');
       let wallsLayer = wallsMap.createStaticLayer(0, wallTile, x, y);
       wallsLayer.setDisplaySize(width, height);
+
+      //for loop to add collision to each wall block --to do here
   
       // Floor
       this.swapZeros(maze); // swaps 0 - 1
@@ -96,6 +102,7 @@ class Scene3 extends Phaser.Scene {
 
         this.cameras.main.setBackgroundColor('#C7671B');
         character = this.physics.add.sprite(48, 48, 'character');
+        character.setPosition(-150,90);
         this.physics.world.setBoundsCollision(true, true, true, true);
         character.setCollideWorldBounds(true);
 
