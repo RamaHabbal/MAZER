@@ -127,7 +127,7 @@ class Scene3 extends Phaser.Scene {
         });
 
         character.x += 300;
-        const menu = new Button(70, 40, 'Menu', this, () => this.scene.start("playGame"));
+        const menu = new Button(70, 40, 'Menu', this, () => this.scene.start("Menu"));
 
  
 

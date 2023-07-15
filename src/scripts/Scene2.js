@@ -421,7 +421,7 @@ function renderTiles(x, y, maze, tilesize) {
 
 class Scene2 extends Phaser.Scene {
     constructor(){
-        super("playGame");
+        super("Menu");
     }
     create(){
         
