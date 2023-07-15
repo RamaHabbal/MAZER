@@ -34,18 +34,18 @@ class Scene2 extends Phaser.Scene {
     }
     create(){
         
-        let video1=this.add.video(550, 260, 'video');
+        let video1=this.add.video(0, 0, 'video').setPosition(this.cameras.main.centerX, this.cameras.main.centerY);
+        video1.scale = 0.6;
         video1.play(true,0,15);   
        
-        let text1=this.add.text(340,30,"MAZER",{
+        let text1=this.add.text(0,0,"MAZER",{
         font:"150px",
         fill:"white"
         
-        });
+        }).setOrigin(-0.5,0);
         
         
-        const startgame = new Button(555, 370, 'Start Game', this, () => this.scene.start("Gaming"));
-       
+        const startgame = new Button(this.cameras.main.centerX, 370, 'Start Game', this, () => this.scene.start("Gaming"));
         
         
            
@@ -58,7 +58,7 @@ class Button {
         const button = scene.add.text(x, y, label)
             .setOrigin(0.5)
             .setPadding(20)
-            .setStyle({ backgroundColor: '#111', font:'35px' })
+            .setStyle({ backgroundColor: '#111', font:'35px', margin:'0px' })
             .setInteractive({ useHandCursor: true })
             .on('pointerdown', () => callback())
             .on('pointerover', () => button.setStyle({ fill: '#f39c12' }))
