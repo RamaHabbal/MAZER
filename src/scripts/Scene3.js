@@ -18,12 +18,15 @@ function idleDirection(direction) {
   }
 }
 
+let player;
 class Scene3 extends Phaser.Scene {
   constructor() {
     super('Gaming');
   }
 
   create() {
+    player = new Player(this, 50, 50, 'character');
+
     // audio1.stop();
     let TILESIZE = 45;
     // const vTiles = Math.floor(this.game.config.height / TILESIZE - 1);
@@ -49,54 +52,54 @@ class Scene3 extends Phaser.Scene {
     this.renderTiles(x, y, mazeMap, TILESIZE);
 
     this.cameras.main.setBackgroundColor('#C7671B');
-    character = this.physics.add.sprite(48, 48, 'character');
-    character.setPosition(-150, 90);
-    this.physics.world.setBoundsCollision(true, true, true, true);
-    character.setCollideWorldBounds(true);
+    // character = this.physics.add.sprite(48, 48, 'character');
+    // character.setPosition(-150, 90);
+    // this.physics.world.setBoundsCollision(true, true, true, true);
+    // character.setCollideWorldBounds(true);
 
-    character.setInteractive();
+    // character.setInteractive();
 
-    this.anims.create({
-      key: 'up',
-      frames: this.anims.generateFrameNumbers('character', {
-        start: 9,
-        end: 11,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
-    this.anims.create({
-      key: 'down',
-      frames: this.anims.generateFrameNumbers('character', {
-        start: 0,
-        end: 2,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
-    this.anims.create({
-      key: 'left',
-      frames: this.anims.generateFrameNumbers('character', {
-        start: 3,
-        end: 5,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
+    // this.anims.create({
+    //   key: 'up',
+    //   frames: this.anims.generateFrameNumbers('character', {
+    //     start: 9,
+    //     end: 11,
+    //   }),
+    //   frameRate: 10,
+    //   repeat: -1,
+    // });
+    // this.anims.create({
+    //   key: 'down',
+    //   frames: this.anims.generateFrameNumbers('character', {
+    //     start: 0,
+    //     end: 2,
+    //   }),
+    //   frameRate: 10,
+    //   repeat: -1,
+    // });
+    // this.anims.create({
+    //   key: 'left',
+    //   frames: this.anims.generateFrameNumbers('character', {
+    //     start: 3,
+    //     end: 5,
+    //   }),
+    //   frameRate: 10,
+    //   repeat: -1,
+    // });
 
-    this.anims.create({
-      key: 'right',
-      frames: this.anims.generateFrameNumbers('character', {
-        start: 6,
-        end: 8,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
+    // this.anims.create({
+    //   key: 'right',
+    //   frames: this.anims.generateFrameNumbers('character', {
+    //     start: 6,
+    //     end: 8,
+    //   }),
+    //   frameRate: 10,
+    //   repeat: -1,
+    // });
 
     this.cameras.main.setBounds(0, 0, 800, 600);
-    this.cameras.main.startFollow(character);
-    this.cameras.main.setZoom(0.2);
+    this.cameras.main.startFollow(player);
+    this.cameras.main.setZoom(1);
 
     // this.physics.add.Collider(character,wallsLayer);
     // house=this.add.image(0, 0, 'house').setPosition(this.cameras.main.centerX, this.cameras.main.centerY);
@@ -145,7 +148,7 @@ class Scene3 extends Phaser.Scene {
     });
     console.log(wallsMap);
     let wallTile = wallsMap.addTilesetImage('wall');
-    wallsLayer = wallsMap.createStaticLayer(0, wallTile, x, y);
+    wallsLayer = wallsMap.createStaticLayer(0, wallTile, 400, 400);
     wallsLayer.setDisplaySize(width, height);
 
     //for loop to add collision to each wall block --to do here
@@ -158,23 +161,24 @@ class Scene3 extends Phaser.Scene {
       tileHeight: 50,
     });
     let floorTile = floorMap.addTilesetImage('ground');
-    floorLayer = floorMap.createDynamicLayer(0, floorTile, x, y);
+    floorLayer = floorMap.createDynamicLayer(0, floorTile, 400, 400);
 
     floorLayer.setDisplaySize(width, height);
 
-    // Shadows
-    const offset = 0.2 * tilesize;
-    let rt = this.add.renderTexture(x + offset, y + offset, width, height);
-    rt.draw(wallsLayer, 0, 0);
-    rt.setAlpha(0.4);
-    rt.setTint(0);
+    // // Shadows
+    // const offset = 0.2 * tilesize;
+    // let rt = this.add.renderTexture(x + offset, y + offset, width, height);
+    // rt.draw(wallsLayer, 0, 0);
+    // rt.setAlpha(0.4);
+    // rt.setTint(0);
 
     // Move walls to front
-    wallsLayer.setDepth(rt.depth + 1);
+    // wallsLayer.setDepth(rt.depth + 1);
   }
 
   update() {
     // Update the game state...
+    player.update();
     let cursors = this.input.keyboard.createCursorKeys();
     let movementup = cursors.up.isDown;
     let movementdown = cursors.down.isDown;
@@ -189,46 +193,46 @@ class Scene3 extends Phaser.Scene {
       //this.scene.pause();
     }
 
-    if (movementup) {
-      character.anims.play('up', true); // Play 'up' animation
-      character.y -= 2;
-      direction = 'up';
-      if (movementright) {
-        character.anims.play('up', true); // Play 'right' animation
-        character.x += 2;
-        direction = 'right';
-      }
-      if (movementleft) {
-        character.anims.play('up', true); // Play 'left' animation
-        character.x -= 2;
-        direction = 'left';
-      }
-    } else if (movementdown) {
-      character.anims.play('down', true); // Play 'down' animation
-      character.y += 2;
-      direction = 'down';
-      if (movementright) {
-        character.anims.play('down', true); // Play 'right' animation
-        character.x += 2;
-        direction = 'right';
-      }
-      if (movementleft) {
-        character.anims.play('down', true); // Play 'left' animation
-        character.x -= 2;
-        direction = 'left';
-      }
-    } else if (movementleft) {
-      character.anims.play('left', true); // Play 'left' animation
-      character.x -= 2;
-      direction = 'left';
-    } else if (movementright) {
-      character.anims.play('right', true); // Play 'right' animation
-      character.x += 2;
-      direction = 'right';
-    } else {
-      character.anims.stop(); // Stop the animation
-      character.setTexture('character', idleDirection(direction)); // Set a specific frame for idle state
-    }
+    // if (movementup) {
+    //   character.anims.play('up', true); // Play 'up' animation
+    //   character.y -= 2;
+    //   direction = 'up';
+    //   if (movementright) {
+    //     character.anims.play('up', true); // Play 'right' animation
+    //     character.x += 2;
+    //     direction = 'right';
+    //   }
+    //   if (movementleft) {
+    //     character.anims.play('up', true); // Play 'left' animation
+    //     character.x -= 2;
+    //     direction = 'left';
+    //   }
+    // } else if (movementdown) {
+    //   character.anims.play('down', true); // Play 'down' animation
+    //   character.y += 2;
+    //   direction = 'down';
+    //   if (movementright) {
+    //     character.anims.play('down', true); // Play 'right' animation
+    //     character.x += 2;
+    //     direction = 'right';
+    //   }
+    //   if (movementleft) {
+    //     character.anims.play('down', true); // Play 'left' animation
+    //     character.x -= 2;
+    //     direction = 'left';
+    //   }
+    // } else if (movementleft) {
+    //   character.anims.play('left', true); // Play 'left' animation
+    //   character.x -= 2;
+    //   direction = 'left';
+    // } else if (movementright) {
+    //   character.anims.play('right', true); // Play 'right' animation
+    //   character.x += 2;
+    //   direction = 'right';
+    // } else {
+    //   character.anims.stop(); // Stop the animation
+    //   character.setTexture('character', idleDirection(direction)); // Set a specific frame for idle state
+    // }
     //winning condition was met{load map 2}
   }
 }

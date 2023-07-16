@@ -19,10 +19,10 @@ class Scene1 extends Phaser.Scene {
       frameHeight: 48,
     });
 
-    this.load.spritesheet('portal', './src/assets/images/newportal.png', {
-      frameWidth: 50,
-      frameHeight: 50,
-    });
+    // this.load.spritesheet('portal', './src/assets/images/newportal.png', {
+    //   frameWidth: 50,
+    //   frameHeight: 50,
+    // });
 
     this.load.image('wall', './src/assets/images/wall.jpeg');
     this.load.image('ground', './src/assets/images/ground.jpeg');
@@ -31,6 +31,6 @@ class Scene1 extends Phaser.Scene {
 
   create() {
     this.add.text(20, 20, 'Loading game...');
-    this.scene.start('Gaming');
+    this.scene.start('Menu');
   }
 }
