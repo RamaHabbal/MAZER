@@ -59,6 +59,7 @@ class Scene3 extends Phaser.Scene {
     //this.physics.add.collider(character, wallsLayer);
     //wallTile.setImmovable(true);
     character.setImmovable(true);
+    character.setInteractive();
 
     this.anims.create({
       key: 'up',
@@ -214,48 +215,8 @@ class Scene3 extends Phaser.Scene {
       direction = 'left';
     }
     else if (movementright) {
-      if (movementup) {
-        character.anims.play('up', true); // Play 'up' animation
-        character.y -= 3;
-        direction = 'up';
-      
-        if (movementright) {
-          character.anims.play('right', true); // Play 'right' animation
-          character.x += 2;
-          direction = 'right';
-        }
-      
-      if (movementleft) {
-        character.anims.play('left', true); // Play 'left' animation
-        character.x -= 3;
-        direction = 'left';
-      }
-    }
-    else if (movementdown) {
-      character.anims.play('down', true); // Play 'down' animation
-      character.y += 3;
-      direction = 'down';
-      
-      if (movementright) {
-        character.anims.play('right', true); // Play 'right' animation
-        character.x += 3;
-        direction = 'right';
-      }
-      
-      if (movementleft) {
-        character.anims.play('left', true); // Play 'left' animation
-        character.x -= 3;
-        direction = 'left';
-      }
-    }
-    else if (movementleft) {
-      character.anims.play('left', true); // Play 'left' animation
-      character.x -= 3;
-      direction = 'left';
-    }
-    else if (movementright) {
       character.anims.play('right', true); // Play 'right' animation
-      character.x += 3;
+      character.x += 2;
       direction = 'right';
     } 
     else {
