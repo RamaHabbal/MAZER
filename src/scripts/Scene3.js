@@ -186,8 +186,9 @@ class Scene3 extends Phaser.Scene {
         let menusettings = this.input.keyboard.addKey('Esc');
         if(menusettings.isDown){
             this.scene.launch('settings');
-          
-           
+            
+            //this is to pause character
+           //this.scene.pause();
             
         };
 

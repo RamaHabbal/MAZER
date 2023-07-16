@@ -10,9 +10,10 @@ class SettingsMenu extends Phaser.Scene {
       
       const Yes = new Button(this.cameras.main.centerX-100, 370, ' Yes ', this, () => { this.scene.start("Menu");
       this.scene.stop(); this.scene.stop("Gaming"); });
-      const No = new Button(this.cameras.main.centerX+100, 370, ' No ', this, () => this.scene.stop());
+      const No = new Button(this.cameras.main.centerX+100, 370, ' No ', this, () => {this.scene.stop()});
     //   Phaser.Display.Align.In.Center(musicText, musicButton);
     }
+    
   }
   this.config = {
     type: Phaser.AUTO,
