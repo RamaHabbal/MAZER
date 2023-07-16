@@ -5,7 +5,7 @@ class GameOver extends Phaser.Scene {
     create() {
       if(highestscore<=score){
         highestscore=score;
-        setCookie(highestscore);
+        setCookie("highestscore",highestscore,10);
 
       }
 
@@ -25,7 +25,7 @@ class GameOver extends Phaser.Scene {
     });
     const gotomenu = new Button(this.cameras.main.centerX, 600, ' Menu ', this, () =>{ this.scene.start("Menu");
     this.scene.stop(); this.scene.stop("Gaming"); });
-    
+    score=0;
     }
   }
   this.config = {
