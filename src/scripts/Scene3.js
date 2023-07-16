@@ -5,7 +5,7 @@ let ESCtext, scoreText;
 let character;
 let direction='down';
 let ghost;let Timertext;
-let timestart=14;
+let timestart=25;
 
  function idleDirection(direction){
     switch (direction) {
@@ -207,7 +207,7 @@ class Scene3 extends Phaser.Scene {
         timestart--;
       if (timestart==0){
         this.scene.launch("gameover");
-        timestart=14;
+        timestart=25;
       }
   }
     ////////
@@ -295,43 +295,64 @@ class Scene3 extends Phaser.Scene {
           this.scene.start("Gaming");
           this.scene.start("Gaming");
           score+=1;
-          timestart=14;
+          timestart=25;
         }
         
 
 
-        if (movementup || movementW ) {
-            character.anims.play('up', true); // Play 'up' animation
-            character.y -= 5;
-            direction = 'up';
+        if(score % 3 == 0 && score != 0 && score % 4 != 0){
+          if (movementup || movementW ) {
+            character.anims.play('down', true); // Play 'up' animation
+            character.y += 5;
+            direction = 'down';
 
-            ghost.anims.play('ghostUp', true); // Play 'up' animation
-            direction = 'ghostUp';
+            ghost.anims.play('ghostDown', true); // Play 'up' animation
+            direction = 'ghostDown';
             ghost.x = character.body.position.x;
-            ghost.y = character.body.position.y + 50;
+            ghost.y = character.body.position.y - 50;
+            if (movementright ||  movementD) {
+            
+                character.anims.play('left', true); // Play 'right' animation
+                character.x -= 5;
+                direction = 'left';
 
-            if (movementright || movementD) {
-              character.anims.play('left', true); // Play 'right' animation
-              character.x -= 5;
-              direction = 'left';
-
-              ghost.anims.play('ghostLeft', true); // Play 'up' animation
-              direction = 'ghostLeft';
-              ghost.x = character.body.position.x + 50;
-              ghost.y = character.body.position.y;
+                ghost.anims.play('ghostLeft', true); // Play 'up' animation
+                direction = 'ghostLeft';
+                ghost.x = character.body.position.x + 50;
+                ghost.y = character.body.position.y;
             }
-            if (movementleft || movementA) {
-              character.anims.play('right', true); // Play 'left' animation
-              character.x += 5;
-              direction = 'right';
+            if (movementleft ||  movementA) {
+                    character.anims.play('right', true); // Play 'left' animation
+                    character.x += 5;
+                    direction = 'right';
 
-              ghost.anims.play('ghostRight', true); // Play 'up' animation
-              direction = 'ghostRight';
-              ghost.x = character.body.position.x - 90;
-              ghost.y = character.body.position.y;
+                    ghost.anims.play('ghostRight', true); // Play 'up' animation
+                    direction = 'ghostRight';
+                    ghost.x = character.body.position.x - 50;
+                    ghost.y = character.body.position.y;
             }
+        }
+        else if (movementdown || movementS) {
+          character.anims.play('up', true); // Play 'down' animation
+          character.y -= 5;
+          direction = 'up';
+
+          ghost.anims.play('ghostUp', true); // Play 'up' animation
+          direction = 'ghostUp';
+          ghost.x = character.body.position.x;
+          ghost.y = character.body.position.y + 50;
+
+          if (movementright || movementD) {
+            character.anims.play('left', true); // Play 'right' animation
+            character.x -= 5;
+            direction = 'left';
+
+            ghost.anims.play('ghostLeft', true); // Play 'up' animation
+            direction = 'ghostLeft';
+            ghost.x = character.body.position.x + 50;
+            ghost.y = character.body.position.y;
           }
-          else if (movementleft || movementA) {
+          if (movementleft || movementA) {
             character.anims.play('right', true); // Play 'left' animation
             character.x += 5;
             direction = 'right';
@@ -341,93 +362,25 @@ class Scene3 extends Phaser.Scene {
             ghost.x = character.body.position.x - 90;
             ghost.y = character.body.position.y;
           }
-          else if (movementright || movementD) {
-            character.anims.play('left', true); // Play 'right' animation
-            character.x -= 5;
-            direction = 'left';
-
-            ghost.anims.play('ghostLeft', true); // Play 'up' animation
-            direction = 'ghostLeft';
-            ghost.x = character.body.position.x + 50;
-            ghost.y = character.body.position.y;
-          } 
-          else {
-          character.anims.stop(); // Stop the animation
-          character.setTexture('character', idleDirection(direction)); // Set a specific frame for idle state
-          }
-          //winning condition was met{load map 2}
-        } 
-        else {
-          if (movementup || movementW ) {
-            character.anims.play('up', true); // Play 'up' animation
-            character.y -= 4;
-            direction = 'up';
-
-            ghost.anims.play('ghostUp', true); // Play 'up' animation
-            
-            ghost.x = character.body.position.x;
-            ghost.y = character.body.position.y + 50;
-            if (movementright ||  movementD) {
-            
-                character.anims.play('up', true); // Play 'right' animation
-                character.x += 3;
-                direction = 'right';
-                }
-            if (movementleft ||  movementA) {
-                    character.anims.play('up', true); // Play 'left' animation
-                    character.x -= 3;
-                    direction = 'left';
-                }
-        }
-        else if (movementdown || movementS) {
-          character.anims.play('down', true); // Play 'down' animation
-          character.y += 4;
-          direction = 'down';
-
-          ghost.anims.play('ghostDown', true); // Play 'up' animation
-          
-          ghost.x = character.body.position.x;
-          ghost.y = character.body.position.y - 50;
-
-          if (movementright || movementD) {
-            character.anims.play('down', true); // Play 'right' animation
-            character.x += 3;
-            direction = 'right';
-
-            ghost.anims.play('ghostRight', true); // Play 'up' animation
-            
-            ghost.x = character.body.position.x - 50;
-            ghost.y = character.body.position.y;
-          }
-          if (movementleft || movementA) {
-            character.anims.play('down', true); // Play 'left' animation
-            character.x -= 3;
-            direction = 'left';
-
-            ghost.anims.play('ghostLeft', true); // Play 'up' animation
-            
-            ghost.x = character.body.position.x + 90;
-            ghost.y = character.body.position.y;
-          }
         }
         else if (movementleft || movementA) {
-          character.anims.play('left', true); // Play 'left' animation
-          character.x -= 4;
-          direction = 'left';
-
-          ghost.anims.play('ghostLeft', true); // Play 'up' animation
-          
-          ghost.x = character.body.position.x + 90;
-          ghost.y = character.body.position.y;
-        }
-        else if (movementright || movementD) {
-          character.anims.play('right', true); // Play 'right' animation
-          character.x += 4;
+          character.anims.play('right', true); // Play 'left' animation
+          character.x += 5;
           direction = 'right';
 
           ghost.anims.play('ghostRight', true); // Play 'up' animation
-          
-          ghost.x = character.body.position.x - 50;
+          direction = 'ghostRight';
+          ghost.x = character.body.position.x - 90;
+          ghost.y = character.body.position.y;
+        }
+        else if (movementright || movementD) {
+          character.anims.play('left', true); // Play 'right' animation
+          character.x -= 5;
+          direction = 'left';
+
+          ghost.anims.play('ghostLeft', true); // Play 'up' animation
+          direction = 'ghostLeft';
+          ghost.x = character.body.position.x + 50;
           ghost.y = character.body.position.y;
         } 
         else {
@@ -435,7 +388,86 @@ class Scene3 extends Phaser.Scene {
         character.setTexture('character', idleDirection(direction)); // Set a specific frame for idle state
         }
         //winning condition was met{load map 2}
+      } 
+      else {
+        if (movementup || movementW ) {
+          character.anims.play('up', true); // Play 'up' animation
+          character.y -= 5;
+          direction = 'up';
+
+          ghost.anims.play('ghostUp', true); // Play 'up' animation
+          direction = 'ghostUp';
+          ghost.x = character.body.position.x;
+          ghost.y = character.body.position.y + 50;
+          if (movementright ||  movementD) {
+          
+              character.anims.play('up', true); // Play 'right' animation
+              character.x += 5;
+              direction = 'right';
+              }
+          if (movementleft ||  movementA) {
+                  character.anims.play('up', true); // Play 'left' animation
+                  character.x -= 5;
+                  direction = 'left';
+              }
+      }
+      else if (movementdown || movementS) {
+        character.anims.play('down', true); // Play 'down' animation
+        character.y += 5;
+        direction = 'down';
+
+        ghost.anims.play('ghostDown', true); // Play 'up' animation
+        direction = 'ghostDown';
+        ghost.x = character.body.position.x;
+        ghost.y = character.body.position.y - 50;
+
+        if (movementright || movementD) {
+          character.anims.play('down', true); // Play 'right' animation
+          character.x += 5;
+          direction = 'right';
+
+          ghost.anims.play('ghostRight', true); // Play 'up' animation
+          direction = 'ghostRight';
+          ghost.x = character.body.position.x - 50;
+          ghost.y = character.body.position.y;
         }
-    }
-        
+        if (movementleft || movementA) {
+          character.anims.play('down', true); // Play 'left' animation
+          character.x -= 5;
+          direction = 'left';
+
+          ghost.anims.play('ghostLeft', true); // Play 'up' animation
+          direction = 'ghostLeft';
+          ghost.x = character.body.position.x + 90;
+          ghost.y = character.body.position.y;
+        }
+      }
+      else if (movementleft || movementA) {
+        character.anims.play('left', true); // Play 'left' animation
+        character.x -= 5;
+        direction = 'left';
+
+        ghost.anims.play('ghostLeft', true); // Play 'up' animation
+        direction = 'ghostLeft';
+        ghost.x = character.body.position.x + 90;
+        ghost.y = character.body.position.y;
+      }
+      else if (movementright || movementD) {
+        character.anims.play('right', true); // Play 'right' animation
+        character.x += 5;
+        direction = 'right';
+
+        ghost.anims.play('ghostRight', true); // Play 'up' animation
+        direction = 'ghostRight';
+        ghost.x = character.body.position.x - 50;
+        ghost.y = character.body.position.y;
+      } 
+      else {
+      character.anims.stop(); // Stop the animation
+      character.setTexture('character', idleDirection(direction)); // Set a specific frame for idle state
+      }
+      //winning condition was met{load map 2}
+      }
+  }
+      
 }
