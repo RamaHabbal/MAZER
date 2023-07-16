@@ -18,7 +18,7 @@ class GameOver extends Phaser.Scene {
     });
     const gotomenu = new Button(this.cameras.main.centerX, 600, ' Menu ', this, () =>{ this.scene.start("Menu");
     this.scene.stop(); this.scene.stop("Gaming"); });
-    //   Phaser.Display.Align.In.Center(musicText, musicButton);
+    
     }
   }
   this.config = {

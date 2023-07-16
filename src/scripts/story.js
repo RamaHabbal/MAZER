@@ -1,5 +1,5 @@
-let string1 =
-  "A little girl has to find her way in the dark in a halloween-ish creepy atmosphere. She is in a maze and does not know the path out of it. Some ghosts pop up every now and then. She must not come too close to a ghost, or else it will start following her. The maze is big, she has to discover the only way out of it. ";
+let string1 = `A little girl has to find her way in the dark in a halloween-ish creepy atmosphere. She is in a maze and does not know the path out of it. Some ghosts pop up every now and then. She must not come too close to a ghost, or else it will start following her. The maze is big, she has to discover the only way out of it...
+`;
   class Story extends Phaser.Scene {
     constructor() {
       super({ key: "story" });

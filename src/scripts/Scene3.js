@@ -4,7 +4,8 @@ let portal;
 let ESCtext, scoreText;
 let character;
 let direction='down';
-
+let Timertext;
+let timestart=14;
 
  function idleDirection(direction){
     switch (direction) {
@@ -119,7 +120,9 @@ class Scene3 extends Phaser.Scene {
           scoreText = this.add.text(700, 170, "SCORE:MAX", {fontSize: '25px', color: '#fff'});
         }
         
-        
+        Timertext= this.add.text(700, 200,"Timer:" + timestart.toString(),  {fontSize: '25px', color: '#fff'});
+        Timertext.setScrollFactor(0,0);
+        Timertext.setDepth(1);
         ESCtext = this.add.text(170, 170, "press 'ESC' to leave", {fontSize: '10px', color: '#fff'});
         scoreText.setScrollFactor(0,0) ;
         ESCtext.setScrollFactor(0,0) ;
@@ -127,11 +130,32 @@ class Scene3 extends Phaser.Scene {
         scoreText.setDepth(1);
         ESCtext.setDepth(1);
      
-     
+        //timer
+        this.triggerTimer = this.time.addEvent({
+        callback: this.timerEvent,
+        callbackScope: this,
+        delay: 1000, 
+        loop: true
+    });
+
+
         
 
     }
 
+
+
+
+    timerEvent() {
+      console.log('timerEvent');
+      
+        Timertext.setText("Timer:"+ timestart);
+        timestart--;
+      if (timestart==0){
+        this.scene.launch("gameover");
+        timestart=14;
+      }
+  }
     ////////
 
 

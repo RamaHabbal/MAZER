@@ -90,18 +90,18 @@ class Scene2 extends Phaser.Scene {
         audio1 = this.sound.add('audio', { loop: true, autoplay: true});
         audio1.play();
         let video1=this.add.video(0, 0, 'video').setPosition(this.cameras.main.centerX, this.cameras.main.centerY);
-        video1.scale = 0.7;
+        video1.scale = 0.75;
         video1.play(true,0,15);   
        
         this.add.image(500,100,'image', './src/assets/images/logomaze.png').setDisplaySize(400,150);
         
-        this.add.text(0,250, ' HIGHEST SCORE:', { 
+        this.add.text(10,250, ' HIGHEST SCORE', { 
           color: 'black', font: '40px bolder',
         }).setOrigin(-1,0.5);
         this.add.text(this.cameras.main.centerX-10, 300, score.toString(), { 
           font: '50px bolder', color: 'black'
         });
-        const startgame = new Button(this.cameras.main.centerX, 400, 'Start Game', this, () => this.scene.start("story"));
+        const startgame = new Button(this.cameras.main.centerX+5, 400, 'Start Game', this, () => this.scene.start("story"));
         
         
            
