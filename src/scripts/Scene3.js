@@ -27,7 +27,6 @@ class Scene3 extends Phaser.Scene {
     }
 
     create(){
-      this.scene.stop("Gaming2");
        audio1.stop();
        
         let TILESIZE = 45;
@@ -141,21 +140,45 @@ class Scene3 extends Phaser.Scene {
 
         this.cameras.main.setBounds(0,0,1000,1000);
         this.cameras.main.startFollow(character);
-        this.cameras.main.setZoom(1.5);
-        
+        if(score == 0) {
+          this.cameras.main.setZoom(1);
+
+          Timertext= this.add.text(870, 50,"Timer:" + timestart.toString(),  {fontSize: '25px', color: '#fff'});
+          ESCtext = this.add.text(40, 10, "press 'ESC' to leave", {fontSize: '16px', color: '#fff'});
+          if (score <=999){
+            scoreText = this.add.text(870, 20, "SCORE:"+score.toString(), {fontSize: '25px', color: '#fff'});
+          }else{
+            scoreText = this.add.text(870, 20, "SCORE:MAX", {fontSize: '25px', color: '#fff'});
+          }
+        }
+        else if (score % 4 == 0) {
+          this.cameras.main.setZoom(1.75);
+
+          Timertext= this.add.text(650, 250,"Timer:" + timestart.toString(),  {fontSize: '25px', color: '#fff'});
+          ESCtext = this.add.text(230, 230, "press 'ESC' to leave", {fontSize: '16px', color: '#fff'});
+          if (score <=999){
+            scoreText = this.add.text(650, 220, "SCORE:"+score.toString(), {fontSize: '25px', color: '#fff'});
+          }else{
+            scoreText = this.add.text(650, 220, "SCORE:MAX", {fontSize: '25px', color: '#fff'});
+          }
+        }
+        else {
+          this.cameras.main.setZoom(1.5);
+
+          Timertext= this.add.text(700, 200,"Timer:" + timestart.toString(),  {fontSize: '25px', color: '#fff'});
+          ESCtext = this.add.text(170, 170, "press 'ESC' to leave", {fontSize: '16px', color: '#fff'});
+          if (score <=999){
+            scoreText = this.add.text(700, 170, "SCORE:"+score.toString(), {fontSize: '25px', color: '#fff'});
+          }else{
+            scoreText = this.add.text(700, 170, "SCORE:MAX", {fontSize: '25px', color: '#fff'});
+          }
+        }
         // this.physics.add.Collider(character,wallsLayer);
         // house=this.add.image(0, 0, 'house').setPosition(this.cameras.main.centerX, this.cameras.main.centerY);
        
-        if (score <=999){
-          scoreText = this.add.text(700, 170, "SCORE:"+score.toString(), {fontSize: '25px', color: '#fff'});
-        }else{
-          scoreText = this.add.text(700, 170, "SCORE:MAX", {fontSize: '25px', color: '#fff'});
-        }
-        
-        Timertext= this.add.text(700, 200,"Timer:" + timestart.toString(),  {fontSize: '25px', color: '#fff'});
         Timertext.setScrollFactor(0,0);
         Timertext.setDepth(1);
-        ESCtext = this.add.text(170, 170, "press 'ESC' to leave", {fontSize: '10px', color: '#fff'});
+        
         scoreText.setScrollFactor(0,0) ;
         ESCtext.setScrollFactor(0,0) ;
         
@@ -269,14 +292,103 @@ class Scene3 extends Phaser.Scene {
         if(character.body.position.x >= 940 && character.body.position.y >= 900){
           console.log("inside c x: " + character.x);
           console.log("inside c y: " + character.y);
-          this.scene.start("Gaming2");
+          this.scene.start("Gaming");
           score+=1;
           timestart=25;
         }
         
 
+        if(score % 3 == 0 && score != 0 && score % 4 != 0){
+            if (movementup || movementW ) {
+              character.anims.play('down', true); // Play 'up' animation
+              character.y += 5;
+              direction = 'down';
 
-        if (movementup || movementW ) {
+              ghost.anims.play('ghostDown', true); // Play 'up' animation
+              direction = 'ghostDown';
+              ghost.x = character.body.position.x;
+              ghost.y = character.body.position.y - 50;
+              if (movementright ||  movementD) {
+              
+                  character.anims.play('left', true); // Play 'right' animation
+                  character.x -= 5;
+                  direction = 'left';
+
+                  ghost.anims.play('ghostLeft', true); // Play 'up' animation
+                  direction = 'ghostLeft';
+                  ghost.x = character.body.position.x + 50;
+                  ghost.y = character.body.position.y;
+              }
+              if (movementleft ||  movementA) {
+                      character.anims.play('right', true); // Play 'left' animation
+                      character.x += 5;
+                      direction = 'right';
+
+                      ghost.anims.play('ghostRight', true); // Play 'up' animation
+                      direction = 'ghostRight';
+                      ghost.x = character.body.position.x - 50;
+                      ghost.y = character.body.position.y;
+              }
+          }
+          else if (movementdown || movementS) {
+            character.anims.play('up', true); // Play 'down' animation
+            character.y -= 5;
+            direction = 'up';
+
+            ghost.anims.play('ghostUp', true); // Play 'up' animation
+            direction = 'ghostUp';
+            ghost.x = character.body.position.x;
+            ghost.y = character.body.position.y + 50;
+
+            if (movementright || movementD) {
+              character.anims.play('left', true); // Play 'right' animation
+              character.x -= 5;
+              direction = 'left';
+
+              ghost.anims.play('ghostLeft', true); // Play 'up' animation
+              direction = 'ghostLeft';
+              ghost.x = character.body.position.x + 50;
+              ghost.y = character.body.position.y;
+            }
+            if (movementleft || movementA) {
+              character.anims.play('right', true); // Play 'left' animation
+              character.x += 5;
+              direction = 'right';
+
+              ghost.anims.play('ghostRight', true); // Play 'up' animation
+              direction = 'ghostRight';
+              ghost.x = character.body.position.x - 90;
+              ghost.y = character.body.position.y;
+            }
+          }
+          else if (movementleft || movementA) {
+            character.anims.play('right', true); // Play 'left' animation
+            character.x += 5;
+            direction = 'right';
+
+            ghost.anims.play('ghostRight', true); // Play 'up' animation
+            direction = 'ghostRight';
+            ghost.x = character.body.position.x - 90;
+            ghost.y = character.body.position.y;
+          }
+          else if (movementright || movementD) {
+            character.anims.play('left', true); // Play 'right' animation
+            character.x -= 5;
+            direction = 'left';
+
+            ghost.anims.play('ghostLeft', true); // Play 'up' animation
+            direction = 'ghostLeft';
+            ghost.x = character.body.position.x + 50;
+            ghost.y = character.body.position.y;
+          } 
+          else {
+          character.anims.stop(); // Stop the animation
+          character.setTexture('character', idleDirection(direction)); // Set a specific frame for idle state
+          }
+          //winning condition was met{load map 2}
+        } 
+        else {
+          if (movementup || movementW ) {
             character.anims.play('up', true); // Play 'up' animation
             character.y -= 5;
             direction = 'up';
@@ -353,6 +465,7 @@ class Scene3 extends Phaser.Scene {
         character.setTexture('character', idleDirection(direction)); // Set a specific frame for idle state
         }
         //winning condition was met{load map 2}
+        }
     }
         
 }
