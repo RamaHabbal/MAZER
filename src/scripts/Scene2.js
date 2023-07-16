@@ -100,7 +100,7 @@ class Scene2 extends Phaser.Scene {
         this.add.text(10,250, ' HIGHEST SCORE', { 
           color: 'black', font: '40px bolder',
         }).setOrigin(-1,0.5);
-        this.add.text(this.cameras.main.centerX-10, 300, score.toString(), { 
+        this.add.text(this.cameras.main.centerX-10, 300, highestscore.toString(), { 
           font: '50px bolder', color: 'black'
         });
         const startgame = new Button(this.cameras.main.centerX+5, 400, 'Start Game', this, () => this.scene.start("story"));
