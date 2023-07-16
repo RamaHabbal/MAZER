@@ -3,14 +3,21 @@ class GameOver extends Phaser.Scene {
       super({ key: 'gameover' });
     }
     create() {
-        this.scene.stop("Gaming");
+      if(highestscore<=score){
+        highestscore=score;
+        setCookie(highestscore);
+
+      }
+
+      this.scene.stop("Gaming");
+      this.scene.stop("Gaming2");
       this.add.text(this.cameras.main.centerX-200, 200, 'GAME OVER', { 
         fontSize: '70px', color: '#fff'
       });
       this.add.text(this.cameras.main.centerX-130, 300, 'SCORE:'+ score.toString(), { 
         fontSize: '60px', color: '#fff'
       });
-      this.add.text(this.cameras.main.centerX-100, 400, ' HIGHEST:'+ score.toString(), { 
+      this.add.text(this.cameras.main.centerX-100, 400, ' HIGHEST:'+ highestscore.toString(), { 
         fontSize: '30px', color: '#fff'
       });
       

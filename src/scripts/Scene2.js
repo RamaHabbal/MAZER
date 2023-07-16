@@ -82,6 +82,7 @@ if (getCookie(highestscore)){
 }else{
   highestscore=score;
 }
+
 class Scene2 extends Phaser.Scene {
     constructor(){
         super("Menu");

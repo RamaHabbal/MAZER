@@ -27,7 +27,9 @@ class Scene3 extends Phaser.Scene {
     }
 
     create(){
+      this.scene.stop("Gaming2");
        audio1.stop();
+       
         let TILESIZE = 45;
         // const vTiles = Math.floor(this.game.config.height / TILESIZE - 1);
         // const hTiles = Math.floor(this.game.config.width / TILESIZE - 1);
@@ -55,7 +57,7 @@ class Scene3 extends Phaser.Scene {
         character = this.physics.add.sprite(48, 48, 'character');
         portal = this.physics.add.sprite(100, 48, 'portal');
         character.setPosition(-150,90);
-        portal.setPosition(990,940);
+        portal.setPosition(985,940);
         this.physics.world.setBoundsCollision(true, true, true, true);
         character.setCollideWorldBounds(true);
 
@@ -140,11 +142,10 @@ class Scene3 extends Phaser.Scene {
 
 
         
-
+     
     }
 
-
-
+ 
 
     timerEvent() {
       console.log('timerEvent');
@@ -230,10 +231,13 @@ class Scene3 extends Phaser.Scene {
             
             //this is to pause character
            //this.scene.pause();
-            
         };
 
-        
+        if( character.body.position.x == portal.body.position.x || character.body.position.y == portal.body.position.y  ){
+          this.scene.start("Gaming2");
+          score+=1;
+          timestart=14;
+        }
         
 
 
