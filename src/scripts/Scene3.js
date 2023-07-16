@@ -282,7 +282,7 @@ class Scene3 extends Phaser.Scene {
             direction = 'up';
 
             ghost.anims.play('ghostUp', true); // Play 'up' animation
-            direction = 'ghostUp';
+            
             ghost.x = character.body.position.x;
             ghost.y = character.body.position.y + 50;
             if (movementright ||  movementD) {
@@ -303,7 +303,7 @@ class Scene3 extends Phaser.Scene {
           direction = 'down';
 
           ghost.anims.play('ghostDown', true); // Play 'up' animation
-          direction = 'ghostDown';
+          
           ghost.x = character.body.position.x;
           ghost.y = character.body.position.y - 50;
 
@@ -313,7 +313,7 @@ class Scene3 extends Phaser.Scene {
             direction = 'right';
 
             ghost.anims.play('ghostRight', true); // Play 'up' animation
-            direction = 'ghostRight';
+            
             ghost.x = character.body.position.x - 50;
             ghost.y = character.body.position.y;
           }
@@ -323,7 +323,7 @@ class Scene3 extends Phaser.Scene {
             direction = 'left';
 
             ghost.anims.play('ghostLeft', true); // Play 'up' animation
-            direction = 'ghostLeft';
+            
             ghost.x = character.body.position.x + 90;
             ghost.y = character.body.position.y;
           }
@@ -334,7 +334,7 @@ class Scene3 extends Phaser.Scene {
           direction = 'left';
 
           ghost.anims.play('ghostLeft', true); // Play 'up' animation
-          direction = 'ghostLeft';
+          
           ghost.x = character.body.position.x + 90;
           ghost.y = character.body.position.y;
         }
@@ -344,7 +344,7 @@ class Scene3 extends Phaser.Scene {
           direction = 'right';
 
           ghost.anims.play('ghostRight', true); // Play 'up' animation
-          direction = 'ghostRight';
+          
           ghost.x = character.body.position.x - 50;
           ghost.y = character.body.position.y;
         } 
