@@ -3,12 +3,12 @@
 ::after {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box !important;
 }
 
 Html,
 body {
-  width: 100vw;
+  width: 100%;
   height: 100%;
 }
 .main-container {
@@ -37,6 +37,7 @@ body {
 
 canvas {
   filter: blur(1px);
+  width: 100% !important;
 }
 
 .forest {
