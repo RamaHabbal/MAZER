@@ -94,9 +94,9 @@ class Scene2 extends Phaser.Scene {
         video1.play(true,0,15);   
        
         this.add.image(500,100,'image', './src/assets/images/logomaze.png').setDisplaySize(400,150);
-
         
-        const startgame = new Button(this.cameras.main.centerX, 370, 'Start Game', this, () => this.scene.start("Gaming"));
+        
+        const startgame = new Button(this.cameras.main.centerX, 370, 'Start Game', this, () => this.scene.start("story"));
         
         
            
