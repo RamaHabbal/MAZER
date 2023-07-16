@@ -157,16 +157,16 @@ class Scene3 extends Phaser.Scene {
     //overlap
 
     // Add an event listener for the escape key to open the menu
-    this.input.keyboard.on('keydown-ESC', this.openMenu, this);
+    //this.input.keyboard.on('keydown-ESC', this.openMenu, this);
 
     // Create and add the Menu scene to the game
     //this.scene.add("Menu", Menu);
   }
 
-  openMenu() {
-    this.scene.pause("Scene3");
-    this.scene.run("Menu");
-  }
+  // openMenu() {
+  //   this.scene.pause("Scene3");
+  //   this.scene.run("Menu");
+  // }
 
   update() {
     // Update the game state...
