@@ -1,5 +1,10 @@
+let wallsLayer;
+let floorLayer;
+let house;
+let ESCtext, scoreText;
 let character;
 let direction='down';
+
 
  function idleDirection(direction){
     switch (direction) {
@@ -14,9 +19,7 @@ let direction='down';
         
     }
   }
-  let wallsLayer;
-  let floorLayer;
-  let ESCtext, scoreText;
+
 class Scene3 extends Phaser.Scene {
     constructor(){
         super("Gaming");
@@ -30,7 +33,7 @@ class Scene3 extends Phaser.Scene {
         let TILESIZE = 45;
         // const vTiles = Math.floor(this.game.config.height / TILESIZE - 1);
         // const hTiles = Math.floor(this.game.config.width / TILESIZE - 1);
-        const vTiles = 19;
+        const vTiles = 18;
         const hTiles = 24;
         // const mapHeight = Math.floor((vTiles - 1) / 2);
         // const mapWidth = Math.floor((hTiles - 1) / 2);
@@ -91,11 +94,27 @@ class Scene3 extends Phaser.Scene {
         this.cameras.main.setZoom(1.5);
         
         
-        scoreText = this.add.text(100, 100, "SCORE: 0", {fontSize: '56px', color: '#fff'});
-        ESCtext = this.add.text(100, 100, "press 'ESC' to leave", {fontSize: '56px', color: '#fff'});
+    
+       
         // this.physics.add.Collider(character,wallsLayer);
-
-
+        // house=this.add.image(0, 0, 'house').setPosition(this.cameras.main.centerX, this.cameras.main.centerY);
+       
+        if (score <=999){
+          scoreText = this.add.text(700, 170, "SCORE:"+score.toString(), {fontSize: '25px', color: '#fff'});
+        }else{
+          scoreText = this.add.text(700, 170, "SCORE:MAX", {fontSize: '25px', color: '#fff'});
+        }
+        
+        
+        ESCtext = this.add.text(170, 170, "press 'ESC' to leave", {fontSize: '10px', color: '#fff'});
+        scoreText.setScrollFactor(0,0) ;
+        ESCtext.setScrollFactor(0,0) ;
+        
+        scoreText.setDepth(1);
+        ESCtext.setDepth(1);
+     
+     
+        
 
     }
 
@@ -162,65 +181,62 @@ class Scene3 extends Phaser.Scene {
         let movementleft = cursors.left.isDown;
         let movementright = cursors.right.isDown;
         
-        scoreText.x = character.body.position.x;
-        scoreText.y = character.body.position.y;  
       
-        ESCtext.x = character.body.position.x-100;
-        ESCtext.y = character.body.position.y-100;  
       
         let menusettings = this.input.keyboard.addKey('Esc');
         if(menusettings.isDown){
             this.scene.launch('settings');
+          
+           
             
         };
 
         
-       
-
+        
 
 
         if (movementup) {
             
             character.anims.play('up', true); // Play 'up' animation
-            character.y -= 3;
+            character.y -= 2;
             direction = 'up';
             if (movementright) {
             
                 character.anims.play('up', true); // Play 'right' animation
-                character.x += 3;
+                character.x += 2;
                 direction = 'right';
                 }
             if (movementleft) {
                     character.anims.play('up', true); // Play 'left' animation
-                    character.x -= 3;
+                    character.x -= 2;
                     direction = 'left';
                 }
         }
         else if (movementdown) {
             character.anims.play('down', true); // Play 'down' animation
-            character.y += 3;
+            character.y += 2;
             direction = 'down';
             if (movementright) {
             
                 character.anims.play('down', true); // Play 'right' animation
-                character.x += 3;
+                character.x += 2;
                 direction = 'right';
                 }
             if (movementleft) {
                     character.anims.play('down', true); // Play 'left' animation
-                    character.x -= 3;
+                    character.x -= 2;
                     direction = 'left';
                 }
         }
         else if (movementleft) {
         character.anims.play('left', true); // Play 'left' animation
-        character.x -= 3;
+        character.x -= 2;
         direction = 'left';
         }
         else if (movementright) {
             
         character.anims.play('right', true); // Play 'right' animation
-        character.x += 3;
+        character.x += 2;
         direction = 'right';
         } 
         else {

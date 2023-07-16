@@ -3,8 +3,9 @@ class SettingsMenu extends Phaser.Scene {
       super({ key: 'settings' });
     }
     create() {
+        
       this.add.text(230, 40, 'Back To Menu?', { 
-        fontSize: '70px', color: '#00000'
+        fontSize: '70px', color: '#fff'
       });
       
       const Yes = new Button(this.cameras.main.centerX-100, 370, ' Yes ', this, () => { this.scene.start("Menu");

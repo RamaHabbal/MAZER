@@ -75,8 +75,13 @@ function renderTiles(x, y, maze, tilesize) {
 
 
 let audio1 ;
-
-
+let score=0;
+let highestscore;
+if (getCookie(highestscore)){
+  highestscore=getCookie(highestscore);
+}else{
+  highestscore=score;
+}
 class Scene2 extends Phaser.Scene {
     constructor(){
         super("Menu");
