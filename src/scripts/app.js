@@ -17,7 +17,7 @@ let config = {
 
   //end: scaling for game
 
-  scene: [Scene1, Scene2,Scene3,SettingsMenu,GameOver,Story, Scene4],
+  scene: [Scene1, Scene2,Scene3,SettingsMenu,GameOver,Story],
   physics: {
     default: 'arcade', // Set the default physics system to Arcade Physics
     arcade: {
