@@ -4,7 +4,8 @@ let portal;
 let ESCtext, scoreText;
 let character;
 let direction='down';
-let ghost;
+let ghost;let Timertext;
+let timestart=14;
 
  function idleDirection(direction){
     switch (direction) {
@@ -26,7 +27,9 @@ class Scene3 extends Phaser.Scene {
     }
 
     create(){
+      this.scene.stop("Gaming2");
        audio1.stop();
+       
         let TILESIZE = 45;
         // const vTiles = Math.floor(this.game.config.height / TILESIZE - 1);
         // const hTiles = Math.floor(this.game.config.width / TILESIZE - 1);
@@ -56,7 +59,7 @@ class Scene3 extends Phaser.Scene {
         ghost = this.physics.add.sprite(0, 0, 'ghost');
 
         character.setPosition(10,50);
-        portal.setPosition(990,940);
+        portal.setPosition(985,940);
         ghost.setPosition(-10,0);
 
         this.physics.world.setBoundsCollision(true, true, true, true);
@@ -149,14 +152,41 @@ class Scene3 extends Phaser.Scene {
           scoreText = this.add.text(700, 170, "SCORE:MAX", {fontSize: '25px', color: '#fff'});
         }
         
+        Timertext= this.add.text(700, 200,"Timer:" + timestart.toString(),  {fontSize: '25px', color: '#fff'});
+        Timertext.setScrollFactor(0,0);
+        Timertext.setDepth(1);
         ESCtext = this.add.text(170, 170, "press 'ESC' to leave", {fontSize: '10px', color: '#fff'});
         scoreText.setScrollFactor(0,0) ;
         ESCtext.setScrollFactor(0,0) ;
         
         scoreText.setDepth(1);
         ESCtext.setDepth(1);
+     
+        //timer
+        this.triggerTimer = this.time.addEvent({
+        callback: this.timerEvent,
+        callbackScope: this,
+        delay: 1000, 
+        loop: true
+    });
+
+
+        
+     
     }
 
+ 
+
+    timerEvent() {
+      console.log('timerEvent');
+      
+        Timertext.setText("Timer:"+ timestart);
+        timestart--;
+      if (timestart==0){
+        this.scene.launch("gameover");
+        timestart=14;
+      }
+  }
     ////////
 
     swapZeros(arr) {
@@ -216,44 +246,47 @@ class Scene3 extends Phaser.Scene {
         let movementdown = cursors.down.isDown;
         let movementleft = cursors.left.isDown;
         let movementright = cursors.right.isDown;
+        
+        let movementW=this.input.keyboard.addKey('W').isDown;
+        let movementA=this.input.keyboard.addKey('A').isDown;
+        let movementS=this.input.keyboard.addKey('S').isDown;
+        let movementD=this.input.keyboard.addKey('D').isDown;
+      
         let menusettings = this.input.keyboard.addKey('Esc');
         
         if(menusettings.isDown){
             this.scene.launch('settings');
-        };        
+            
+            //this is to pause character
+           //this.scene.pause();
+        };
 
-        if (movementup) {
-          character.anims.play('up', true); // Play 'up' animation
-          character.y -= 2;
-          direction = 'up';
-
-          ghost.anims.play('ghostUp', true); // Play 'up' animation
-          direction = 'ghostUp';
-          ghost.x = character.body.position.x;
-          ghost.y = character.body.position.y + 90;
-
-          if (movementright) {
-            character.anims.play('up', true); // Play 'right' animation
-            character.x += 2;
-            direction = 'right';
-
-            ghost.anims.play('ghostRight', true); // Play 'up' animation
-            direction = 'ghostRight';
-            ghost.x = character.body.position.x - 50;
-            ghost.y = character.body.position.y;
-          }
-          if (movementleft) {
-            character.anims.play('up', true); // Play 'left' animation
-            character.x -= 2;
-            direction = 'left';
-
-            ghost.anims.play('ghostLeft', true); // Play 'up' animation
-            direction = 'ghostLeft';
-            ghost.x = character.body.position.x + 90;
-            ghost.y = character.body.position.y;
-          }
+        if( character.body.position.x == portal.body.position.x || character.body.position.y == portal.body.position.y  ){
+          this.scene.start("Gaming2");
+          score+=1;
+          timestart=14;
         }
-        else if (movementdown) {
+        
+
+
+        if (movementup || movementW ) {
+            
+            character.anims.play('up', true); // Play 'up' animation
+            character.y -= 2;
+            direction = 'up';
+            if (movementright ||  movementD) {
+            
+                character.anims.play('up', true); // Play 'right' animation
+                character.x += 2;
+                direction = 'right';
+                }
+            if (movementleft ||  movementA) {
+                    character.anims.play('up', true); // Play 'left' animation
+                    character.x -= 2;
+                    direction = 'left';
+                }
+        }
+        else if (movementdown || movementS) {
           character.anims.play('down', true); // Play 'down' animation
           character.y += 2;
           direction = 'down';
@@ -263,7 +296,7 @@ class Scene3 extends Phaser.Scene {
           ghost.x = character.body.position.x;
           ghost.y = character.body.position.y - 50;
 
-          if (movementright) {
+          if (movementright || movementD) {
             character.anims.play('down', true); // Play 'right' animation
             character.x += 2;
             direction = 'right';
@@ -273,7 +306,7 @@ class Scene3 extends Phaser.Scene {
             ghost.x = character.body.position.x - 50;
             ghost.y = character.body.position.y;
           }
-          if (movementleft) {
+          if (movementleft || movementA) {
             character.anims.play('down', true); // Play 'left' animation
             character.x -= 2;
             direction = 'left';
@@ -284,7 +317,7 @@ class Scene3 extends Phaser.Scene {
             ghost.y = character.body.position.y;
           }
         }
-        else if (movementleft) {
+        else if (movementleft || movementA) {
           character.anims.play('left', true); // Play 'left' animation
           character.x -= 2;
           direction = 'left';
@@ -294,7 +327,7 @@ class Scene3 extends Phaser.Scene {
           ghost.x = character.body.position.x + 90;
           ghost.y = character.body.position.y;
         }
-        else if (movementright) {
+        else if (movementright || movementD) {
           character.anims.play('right', true); // Play 'right' animation
           character.x += 2;
           direction = 'right';
