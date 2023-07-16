@@ -1,6 +1,6 @@
 let wallsLayer;
 let floorLayer;
-let house;
+let portal;
 let ESCtext, scoreText;
 let character;
 let direction='down';
@@ -51,15 +51,24 @@ class Scene3 extends Phaser.Scene {
     this.renderTiles(x, y, mazeMap, TILESIZE);
     this.cameras.main.setBackgroundColor('#C7671B');
     character = this.physics.add.sprite(48, 48, 'character');
+    portal = this.physics.add.sprite(100, 48, 'portal');
     character.setPosition(-150,90);
+    portal.setPosition(900,970);
     this.physics.world.setBoundsCollision(true, true, true, true);
     character.setCollideWorldBounds(true);
+
+    portal.displayWidth = 70;
+    portal.displayHeight = 60;
 
     // Add collision between the character and the walls layer
     //this.physics.add.collider(character, wallsLayer);
     //wallTile.setImmovable(true);
     character.setImmovable(true);
     character.setInteractive();
+
+    portal.setImmovable(true);
+    portal.setInteractive();
+    portal.setDepth(2);
 
     this.anims.create({
       key: 'up',
@@ -88,10 +97,19 @@ class Scene3 extends Phaser.Scene {
       frameRate: 10,
       repeat: -1,
     });
+
+    this.anims.create({
+        key: 'portalAnimation', // Custom animation key
+        frames: this.anims.generateFrameNumbers('portal', { start: 0, end: 2 }),
+        frameRate: 5, // Adjust the frame rate as needed
+        repeat: -1, // Repeat indefinitely
+    });
+
+    portal.anims.play('portalAnimation');
     
     this.cameras.main.setBounds(0,0,1000,1000);
     this.cameras.main.startFollow(character);
-    this.cameras.main.setZoom(1.5);
+    this.cameras.main.setZoom(1);
     
     // this.physics.add.Collider(character,wallsLayer);
     // house=this.add.image(0, 0, 'house').setPosition(this.cameras.main.centerX, this.cameras.main.centerY);
@@ -190,45 +208,45 @@ class Scene3 extends Phaser.Scene {
         if (movementup) {
             
             character.anims.play('up', true); // Play 'up' animation
-            character.y -= 2;
+            character.y -= 5;
             direction = 'up';
             if (movementright) {
             
                 character.anims.play('up', true); // Play 'right' animation
-                character.x += 2;
+                character.x += 5;
                 direction = 'right';
                 }
             if (movementleft) {
                     character.anims.play('up', true); // Play 'left' animation
-                    character.x -= 2;
+                    character.x -= 5;
                     direction = 'left';
                 }
         }
         else if (movementdown) {
             character.anims.play('down', true); // Play 'down' animation
-            character.y += 2;
+            character.y += 5;
             direction = 'down';
             if (movementright) {
             
                 character.anims.play('down', true); // Play 'right' animation
-                character.x += 2;
+                character.x += 5;
                 direction = 'right';
                 }
             if (movementleft) {
                     character.anims.play('down', true); // Play 'left' animation
-                    character.x -= 2;
+                    character.x -= 5;
                     direction = 'left';
                 }
         }
         else if (movementleft) {
         character.anims.play('left', true); // Play 'left' animation
-        character.x -= 2;
+        character.x -= 5;
         direction = 'left';
         }
         else if (movementright) {
             
         character.anims.play('right', true); // Play 'right' animation
-        character.x += 2;
+        character.x += 5;
         direction = 'right';
       } 
       else {
