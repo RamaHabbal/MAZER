@@ -11,6 +11,7 @@ class GameOver extends Phaser.Scene {
 
       this.scene.stop("Gaming");
       this.scene.stop("Gaming2");
+      this.scene.stop("settings");
       this.add.text(this.cameras.main.centerX-200, 200, 'GAME OVER', { 
         fontSize: '70px', color: '#fff'
       });
