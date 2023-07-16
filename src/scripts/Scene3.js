@@ -115,12 +115,6 @@ class Scene3 extends Phaser.Scene {
   update() {
     // Update the game state...
     player.update();
-    let cursors = this.input.keyboard.createCursorKeys();
-    let movementup = cursors.up.isDown;
-    let movementdown = cursors.down.isDown;
-    let movementleft = cursors.left.isDown;
-    let movementright = cursors.right.isDown;
-
     let menusettings = this.input.keyboard.addKey('Esc');
     if (menusettings.isDown) {
       this.scene.launch('settings');
