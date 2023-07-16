@@ -16,14 +16,14 @@ class Scene3 extends Phaser.Scene {
 
     // audio1.stop();
     let TILESIZE = 45;
-    // const vTiles = Math.floor(this.game.config.height / TILESIZE - 1);
-    // const hTiles = Math.floor(this.game.config.width / TILESIZE - 1);
-    const vTiles = 18;
-    const hTiles = 24;
-    // const mapHeight = Math.floor((vTiles - 1) / 2);
-    // const mapWidth = Math.floor((hTiles - 1) / 2);
-    const mapHeight = 10;
-    const mapWidth = 10;
+    const vTiles = Math.floor(this.game.config.height / TILESIZE - 1);
+    const hTiles = Math.floor(this.game.config.width / TILESIZE - 1);
+    // const vTiles = 18;
+    // const hTiles = 24;
+    const mapHeight = Math.floor((vTiles - 1) / 2);
+    const mapWidth = Math.floor((hTiles - 1) / 2);
+    // const mapHeight = 10;
+    // const mapWidth = 10;
     // Creates a maze object to make mazes of 10x10 cells
     const maze = new Maze(mapHeight, mapWidth);
     // Maze start in position: column 0, row 1
@@ -101,14 +101,6 @@ class Scene3 extends Phaser.Scene {
 
     floorLayer.setDisplaySize(width, height);
 
-    // // Shadows
-    // const offset = 0.2 * tilesize;
-    // let rt = this.add.renderTexture(x + offset, y + offset, width, height);
-    // rt.draw(wallsLayer, 0, 0);
-    // rt.setAlpha(0.4);
-    // rt.setTint(0);
-
-    // Move walls to front
     // wallsLayer.setDepth(rt.depth + 1);
   }
 
@@ -118,7 +110,6 @@ class Scene3 extends Phaser.Scene {
     let menusettings = this.input.keyboard.addKey('Esc');
     if (menusettings.isDown) {
       this.scene.launch('settings');
-
       //this is to pause character
       //this.scene.pause();
     }

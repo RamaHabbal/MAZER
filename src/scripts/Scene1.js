@@ -26,7 +26,7 @@ class Scene1 extends Phaser.Scene {
 
     this.load.image('wall', './src/assets/images/wall.jpeg');
     this.load.image('ground', './src/assets/images/ground.jpeg');
-    this.load.audio('audio', './src/assets/music/Peder_B_Helland_Darkness.m4a');
+    // this.load.audio('audio', './src/assets/music/Peder_B_Helland_Darkness.m4a');
   }
 
   create() {

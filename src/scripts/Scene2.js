@@ -1,29 +1,25 @@
-//store data in cookies call them by function name on any page 
+//store data in cookies call them by function name on any page
 function setCookie(cname, cvalue, exdays) {
-    const d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    let expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-  }
-  
-  function getCookie(cname) {
-    let name = cname + "=";
-    let ca = document.cookie.split(';');
-    for(let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
+  const d = new Date();
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+  let expires = 'expires=' + d.toUTCString();
+  document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+}
+
+function getCookie(cname) {
+  let name = cname + '=';
+  let ca = document.cookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
     }
-    return "";
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
   }
-
-
-
-
+  return '';
+}
 
 ////////////////////
 ///////////////////
@@ -62,66 +58,61 @@ function renderTiles(x, y, maze, tilesize) {
   this.renderSolution(map);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-let audio1 ;
-let score=0;
+let audio1;
+let score = 0;
 let highestscore;
-if (getCookie(highestscore)){
-  highestscore=getCookie(highestscore);
-}else{
-  highestscore=score;
+if (getCookie(highestscore)) {
+  highestscore = getCookie(highestscore);
+} else {
+  highestscore = score;
 }
 class Scene2 extends Phaser.Scene {
-    constructor(){
-        super("Menu");
-    }
-    create(){
-        audio1 = this.sound.add('audio', { loop: true, autoplay: true});
-        audio1.play();
-        let video1=this.add.video(0, 0, 'video').setPosition(this.cameras.main.centerX, this.cameras.main.centerY);
-        video1.scale = 0.7;
-        video1.play(true,0,15);   
-       
-        this.add.image(500,100,'image', './src/assets/images/logomaze.png').setDisplaySize(400,150);
-        
-        this.add.text(0,250, ' HIGHEST SCORE:', { 
-          color: 'black', font: '40px bolder',
-        }).setOrigin(-1,0.5);
-        this.add.text(this.cameras.main.centerX-10, 300, score.toString(), { 
-          font: '50px bolder', color: 'black'
-        });
-        const startgame = new Button(this.cameras.main.centerX, 400, 'Start Game', this, () => this.scene.start("story"));
-        
-        
-           
-}}
+  constructor() {
+    super('Menu');
+  }
+  create() {
+    // audio1 = this.sound.add('audio', { loop: true, autoplay: true});
+    // audio1.play();
+    let video1 = this.add
+      .video(0, 0, 'video')
+      .setPosition(this.cameras.main.centerX, this.cameras.main.centerY);
+    video1.scale = 0.7;
+    video1.play(true, 0, 15);
 
+    this.add
+      .image(500, 100, 'image', './src/assets/images/logomaze.png')
+      .setDisplaySize(400, 150);
 
-
-class Button {
-    constructor(x, y, label, scene, callback) {
-        let button = scene.add.text(x, y, label)
-            .setOrigin(0.5)
-            .setPadding(20)
-            .setStyle({ backgroundColor: '#111', font:'35px', margin:'0px' })
-            .setInteractive({ useHandCursor: true })
-            .on('pointerdown', () => callback())
-            .on('pointerover', () => button.setStyle({ fill: '#f39c12' }))
-            .on('pointerout', () => button.setStyle({ fill: '#FFF' }));
-    }
+    this.add
+      .text(0, 250, ' HIGHEST SCORE:', {
+        color: 'black',
+        font: '40px bolder',
+      })
+      .setOrigin(-1, 0.5);
+    this.add.text(this.cameras.main.centerX - 10, 300, score.toString(), {
+      font: '50px bolder',
+      color: 'black',
+    });
+    const startgame = new Button(
+      this.cameras.main.centerX,
+      400,
+      'Start Game',
+      this,
+      () => this.scene.start('story')
+    );
+  }
 }
 
-
-
-    
+class Button {
+  constructor(x, y, label, scene, callback) {
+    let button = scene.add
+      .text(x, y, label)
+      .setOrigin(0.5)
+      .setPadding(20)
+      .setStyle({ backgroundColor: '#111', font: '35px', margin: '0px' })
+      .setInteractive({ useHandCursor: true })
+      .on('pointerdown', () => callback())
+      .on('pointerover', () => button.setStyle({ fill: '#f39c12' }))
+      .on('pointerout', () => button.setStyle({ fill: '#FFF' }));
+  }
+}

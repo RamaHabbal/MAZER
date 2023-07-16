@@ -73,19 +73,15 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.anims.play('up', true); // Play 'up' animation
         this.setVelocity(0, -100);
         direction = 'up';
-      }
-
-      if (movement_left) {
+      } else if (movement_left) {
         this.anims.play('left', true); // Play 'left' animation
         this.setVelocity(-100, 0);
         direction = 'left';
-      }
-      if (movement_right) {
+      } else if (movement_right) {
         this.anims.play('right', true); // Play 'right' animation
         this.setVelocity(100, 0);
         direction = 'right';
-      }
-      if (movement_down) {
+      } else if (movement_down) {
         this.anims.play('down', true); // Play 'down' animation
         this.setVelocity(0, 100);
         direction = 'down';
@@ -93,7 +89,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     } else {
       this.setVelocity(0, 0);
       this.anims.stop(); // Stop the animation
-      this.setTexture('character', idleDirection(direction)); // Set a specific frame for idle state
+      this.setTexture('character', this.idleDirection(direction)); // Set a specific frame for idle state
     }
   }
 }
