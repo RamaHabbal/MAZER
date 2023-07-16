@@ -7,8 +7,8 @@ class Scene1 extends Phaser.Scene {
     preload(){
         
         this.load.video('video', './src/assets/images/halloweenbackground.mp4', 'loadeddata', false, true);
-        this.load.audio('audio', './src/assets/music/Peder_B_Helland_Darkness.m4a');
-
+        // this.load.image('house', './src/assets/images/house.png');
+        
         this.load.image('image', './src/assets/images/logomaze.png');
         this.load.spritesheet('character', './src/assets/images/spritesheet.png', {
               frameWidth: 48,
@@ -17,14 +17,8 @@ class Scene1 extends Phaser.Scene {
 
         this.load.image('wall', './src/assets/images/wall.jpeg');
         this.load.image('ground', './src/assets/images/ground.jpeg');
-    //this.load.audio
-    //in other scenes;
-    //then this.sound.add
-    //this.sound.play();
-    //let or var soundconfig={mute volume rate detune seek loop delay}
-    //for animations https://www.youtube.com/watch?v=hJ91bkJPdH0&list=PLDyH9Tk5ZdFzEu_izyqgPFtHJJXkc79no&index=13
-    //score label :> https://www.youtube.com/watch?v=a17P2A4Bgko&list=PLDyH9Tk5ZdFzEu_izyqgPFtHJJXkc79no&index=12
-    //
+        this.load.audio('audio', './src/assets/music/Peder_B_Helland_Darkness.m4a');
+          
     }
 
     

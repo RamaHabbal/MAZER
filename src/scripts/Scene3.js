@@ -1,5 +1,10 @@
+let wallsLayer;
+let floorLayer;
+let house;
+let ESCtext, scoreText;
 let character;
 let direction='down';
+
 
  function idleDirection(direction){
     switch (direction) {
@@ -14,22 +19,23 @@ let direction='down';
         
     }
   }
-  
+
 class Scene3 extends Phaser.Scene {
   constructor(){
     super("Gaming");
   }
       
   create(){
+    audio1.stop();
     let TILESIZE = 45;
     // const vTiles = Math.floor(this.game.config.height / TILESIZE - 1);
     // const hTiles = Math.floor(this.game.config.width / TILESIZE - 1);
-    const vTiles = 13;
-    const hTiles = 11;
+    const vTiles = 18;
+    const hTiles = 24;
     // const mapHeight = Math.floor((vTiles - 1) / 2);
     // const mapWidth = Math.floor((hTiles - 1) / 2);
-    const mapHeight = 6;
-    const mapWidth = 6;
+    const mapHeight = 10;
+    const mapWidth = 10;
     // Creates a maze object to make mazes of 10x10 cells
     const maze = new Maze(mapHeight, mapWidth);
     // Maze start in position: column 0, row 1
@@ -43,76 +49,11 @@ class Scene3 extends Phaser.Scene {
     const y = Math.round((this.game.config.height - TILESIZE * vTiles) / 2);
     
     this.renderTiles(x, y, mazeMap, TILESIZE);
-
-    this.cameras.main.setBounds(0,0,860,640);
-    this.cameras.main.startFollow(character);
-    this.cameras.main.setZoom(1.3);
-  }
-  
-  swapZeros(arr) {
-    arr.forEach((row, i) => {
-      row.forEach((v, i, a) => {
-        a[i] = a[i] ? 0 : 1;
-      });
-    });
-  }
-  
-  renderTiles(x, y, maze, tilesize) {
-    const width = tilesize * maze[0].length;
-    const height = tilesize * maze.length;
-  
-    // Walls
-    let wallsMap = this.make.tilemap({
-      data: maze,
-      tileWidth: 50,
-      tileHeight: 50,
-    });
-    
-    console.log(wallsMap);
-    
-    let wallTile = wallsMap.addTilesetImage('wall');
-    let wallsLayer = wallsMap.createStaticLayer(0, wallTile, x, y);
-    wallsLayer.setDisplaySize(width, height);
-
-    //for loop to add collision to each wall block --to do here
-  
-    // Create a group for the walls
-    this.wallsGroup = this.physics.add.staticGroup();
-    this.wallsGroup.add(wallsLayer); // Add the wallsLayer to the group
-
-    // Add collision between the character and the walls group
-    //this.physics.add.collider(character, this.wallsGroup);
-
-    // Floor
-    this.swapZeros(maze); // swaps 0 - 1
-    let floorMap = this.make.tilemap({
-      data: maze,
-      tileWidth: 50,
-      tileHeight: 50,
-    });
-    
-    let floorTile = floorMap.addTilesetImage('ground');
-    let floorLayer = floorMap.createDynamicLayer(0, floorTile, x, y);
-  
-    floorLayer.setDisplaySize(width, height);
-  
-    // Shadows
-    const offset = 0.2 * tilesize;
-    let rt = this.add.renderTexture(x + offset, y + offset, width, height);
-    rt.draw(wallsLayer, 0, 0);
-    rt.setAlpha(0.4);
-    rt.setTint(0);
-  
-    // Move walls to front
-    wallsLayer.setDepth(rt.depth + 1);
-  
     this.cameras.main.setBackgroundColor('#C7671B');
     character = this.physics.add.sprite(48, 48, 'character');
     character.setPosition(-150,90);
     this.physics.world.setBoundsCollision(true, true, true, true);
     character.setCollideWorldBounds(true);
-
-    character.setInteractive();
 
     // Add collision between the character and the walls layer
     //this.physics.add.collider(character, wallsLayer);
@@ -146,27 +87,81 @@ class Scene3 extends Phaser.Scene {
       frameRate: 10,
       repeat: -1,
     });
-
-    character.x += 300;
-    const menu = new Button(70, 40, 'Menu', this, () => this.scene.start("Menu"));
     
-    // this.physics.add.collider(this.character,wallsLayer);
-    // SetCollisionByProperty(properties, collides, recalculateFaces, layer)
-    //this.physics.add.collider(this.projectiles,this.powerUps)
-    //projectile.destroy();
-    //overlap
-
-    // Add an event listener for the escape key to open the menu
-    //this.input.keyboard.on('keydown-ESC', this.openMenu, this);
-
-    // Create and add the Menu scene to the game
-    //this.scene.add("Menu", Menu);
+    this.cameras.main.setBounds(0,0,1000,1000);
+    this.cameras.main.startFollow(character);
+    this.cameras.main.setZoom(1.5);
+    
+    // this.physics.add.Collider(character,wallsLayer);
+    // house=this.add.image(0, 0, 'house').setPosition(this.cameras.main.centerX, this.cameras.main.centerY);
+       
+    if (score <=999){
+      scoreText = this.add.text(700, 170, "SCORE:"+score.toString(), {fontSize: '25px', color: '#fff'});
+    }else{
+      scoreText = this.add.text(700, 170, "SCORE:MAX", {fontSize: '25px', color: '#fff'});
+    }
+    
+    ESCtext = this.add.text(170, 170, "press 'ESC' to leave", {fontSize: '10px', color: '#fff'});
+    scoreText.setScrollFactor(0,0) ;
+    ESCtext.setScrollFactor(0,0) ;
+    
+    scoreText.setDepth(1);
+    ESCtext.setDepth(1);
   }
+  
+  ////////
+  
+  swapZeros(arr) {
+    arr.forEach((row, i) => {
+      row.forEach((v, i, a) => {
+        a[i] = a[i] ? 0 : 1;
+      });
+    });
+  }
+  
+  renderTiles(x, y, maze, tilesize) {
+    const width = tilesize * maze[0].length;
+    const height = tilesize * maze.length;
+    
+    // Walls
+    let wallsMap = this.make.tilemap({
+      data: maze,
+      tileWidth: 50,
+      tileHeight: 50,
+    });
+    
+    console.log(wallsMap);
+    let wallTile = wallsMap.addTilesetImage('wall');
+    wallsLayer = wallsMap.createStaticLayer(0, wallTile, x, y);
+    wallsLayer.setDisplaySize(width, height);
 
-  // openMenu() {
-  //   this.scene.pause("Scene3");
-  //   this.scene.run("Menu");
-  // }
+    //for loop to add collision to each wall block --to do here
+  
+    // Floor
+    this.swapZeros(maze); // swaps 0 - 1
+    let floorMap = this.make.tilemap({
+      data: maze,
+      tileWidth: 50,
+      tileHeight: 50,
+    });
+    
+    let floorTile = floorMap.addTilesetImage('ground');
+    floorLayer = floorMap.createDynamicLayer(0, floorTile, x, y);
+  
+    floorLayer.setDisplaySize(width, height);
+  
+    // Shadows
+    const offset = 0.2 * tilesize;
+    let rt = this.add.renderTexture(x + offset, y + offset, width, height);
+    rt.draw(wallsLayer, 0, 0);
+    rt.setAlpha(0.4);
+    rt.setTint(0);
+  
+    // Move walls to front
+    wallsLayer.setDepth(rt.depth + 1);
+  }
+  
+  ///////
 
   update() {
     // Update the game state...
@@ -175,17 +170,60 @@ class Scene3 extends Phaser.Scene {
     let movementdown = cursors.down.isDown;
     let movementleft = cursors.left.isDown;
     let movementright = cursors.right.isDown;
-            
+        
+    let menusettings = this.input.keyboard.addKey('Esc');
+    if(menusettings.isDown){
+      this.scene.launch('settings');
+    };
+    
     if (movementup) {
       character.anims.play('up', true); // Play 'up' animation
-      character.y -= 3;
+      character.y -= 2;
       direction = 'up';
-      
       if (movementright) {
-        character.anims.play('right', true); // Play 'right' animation
-        character.x += 3;
+        character.anims.play('up', true); // Play 'right' animation
+        character.x += 2;
         direction = 'right';
       }
+      
+      if (movementleft) {
+        character.anims.play('up', true); // Play 'left' animation
+        character.x -= 2;
+        direction = 'left';
+      }
+    }
+    else if (movementdown) {
+      character.anims.play('down', true); // Play 'down' animation
+      character.y += 2;
+      direction = 'down';
+      if (movementright) {
+        character.anims.play('down', true); // Play 'right' animation
+        character.x += 2;
+        direction = 'right';
+      }
+      
+      if (movementleft) {
+        character.anims.play('down', true); // Play 'left' animation
+        character.x -= 2;
+        direction = 'left';
+      }
+    }
+    else if (movementleft) {
+      character.anims.play('left', true); // Play 'left' animation
+      character.x -= 2;
+      direction = 'left';
+    }
+    else if (movementright) {
+      if (movementup) {
+        character.anims.play('up', true); // Play 'up' animation
+        character.y -= 3;
+        direction = 'up';
+      
+        if (movementright) {
+          character.anims.play('right', true); // Play 'right' animation
+          character.x += 2;
+          direction = 'right';
+        }
       
       if (movementleft) {
         character.anims.play('left', true); // Play 'left' animation

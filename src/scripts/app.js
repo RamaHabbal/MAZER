@@ -3,8 +3,8 @@ window.onload=function(){
 
 let config = {
   type: Phaser.AUTO,
-  width: 860, // Set the desired width of the game canvas
-  height: 640, // Set the desired height of the game canvas
+  width: 1000, // Set the desired width of the game canvas
+  height: 1000, // Set the desired height of the game canvas
   parent: 'game-container', // The ID of the HTML element to attach the game canvas to
   //begin: scaling for game
 
@@ -17,7 +17,7 @@ let config = {
 
   //end: scaling for game
 
-  scene: [Scene1, Scene2,Scene3],
+  scene: [Scene1, Scene2,Scene3,SettingsMenu,GameOver,Story],
   physics: {
     default: 'arcade', // Set the default physics system to Arcade Physics
     arcade: {
