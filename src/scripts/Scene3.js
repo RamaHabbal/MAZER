@@ -219,7 +219,10 @@ class Scene3 extends Phaser.Scene {
         let movementleft = cursors.left.isDown;
         let movementright = cursors.right.isDown;
         
-      
+        let movementW=this.input.keyboard.addKey('W').isDown;
+        let movementA=this.input.keyboard.addKey('A').isDown;
+        let movementS=this.input.keyboard.addKey('S').isDown;
+        let movementD=this.input.keyboard.addKey('D').isDown;
       
         let menusettings = this.input.keyboard.addKey('Esc');
         if(menusettings.isDown){
@@ -234,45 +237,45 @@ class Scene3 extends Phaser.Scene {
         
 
 
-        if (movementup) {
+        if (movementup || movementW ) {
             
             character.anims.play('up', true); // Play 'up' animation
             character.y -= 2;
             direction = 'up';
-            if (movementright) {
+            if (movementright ||  movementD) {
             
                 character.anims.play('up', true); // Play 'right' animation
                 character.x += 2;
                 direction = 'right';
                 }
-            if (movementleft) {
+            if (movementleft ||  movementA) {
                     character.anims.play('up', true); // Play 'left' animation
                     character.x -= 2;
                     direction = 'left';
                 }
         }
-        else if (movementdown) {
+        else if (movementdown || movementS) {
             character.anims.play('down', true); // Play 'down' animation
             character.y += 2;
             direction = 'down';
-            if (movementright) {
+            if (movementright || movementD) {
             
                 character.anims.play('down', true); // Play 'right' animation
                 character.x += 2;
                 direction = 'right';
                 }
-            if (movementleft) {
+            if (movementleft || movementA) {
                     character.anims.play('down', true); // Play 'left' animation
                     character.x -= 2;
                     direction = 'left';
                 }
         }
-        else if (movementleft) {
+        else if (movementleft || movementA) {
         character.anims.play('left', true); // Play 'left' animation
         character.x -= 2;
         direction = 'left';
         }
-        else if (movementright) {
+        else if (movementright || movementD) {
             
         character.anims.play('right', true); // Play 'right' animation
         character.x += 2;
