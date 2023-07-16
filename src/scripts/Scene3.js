@@ -42,7 +42,7 @@ class Scene3 extends Phaser.Scene {
 
     this.cameras.main.setBounds(0, 0, 800, 600);
     this.cameras.main.startFollow(player);
-    this.cameras.main.setZoom(1);
+    this.cameras.main.setZoom(0.5);
 
     if (score <= 999) {
       scoreText = this.add.text(700, 170, 'SCORE:' + score.toString(), {
@@ -84,7 +84,7 @@ class Scene3 extends Phaser.Scene {
       tileWidth: 50,
       tileHeight: 50,
     });
-    console.log(wallsMap);
+
     let wallTile = wallsMap.addTilesetImage('wall');
     wallsLayer = wallsMap.createStaticLayer(0, wallTile, 400, 400);
     wallsLayer.setDisplaySize(width, height);
@@ -100,8 +100,8 @@ class Scene3 extends Phaser.Scene {
     floorLayer = floorMap.createDynamicLayer(0, floorTile, 400, 400);
 
     floorLayer.setDisplaySize(width, height);
-
-    // wallsLayer.setDepth(rt.depth + 1);
+    wallsLayer.setDepth(-1);
+    floorLayer.setDepth(-1);
   }
 
   update() {

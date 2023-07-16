@@ -4,7 +4,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     scene.add.existing(this);
     scene.physics.add.existing(this);
     this.body.setCollideWorldBounds(true);
-    this.speed = 100;
+    this.speed = 500;
 
     //Animation Frames
     scene.anims.create({
@@ -71,19 +71,19 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     if (onePressed) {
       if (movement_up) {
         this.anims.play('up', true); // Play 'up' animation
-        this.setVelocity(0, -100);
+        this.setVelocity(0, -this.speed);
         direction = 'up';
       } else if (movement_left) {
         this.anims.play('left', true); // Play 'left' animation
-        this.setVelocity(-100, 0);
+        this.setVelocity(-this.speed, 0);
         direction = 'left';
       } else if (movement_right) {
         this.anims.play('right', true); // Play 'right' animation
-        this.setVelocity(100, 0);
+        this.setVelocity(this.speed, 0);
         direction = 'right';
       } else if (movement_down) {
         this.anims.play('down', true); // Play 'down' animation
-        this.setVelocity(0, 100);
+        this.setVelocity(0, this.speed);
         direction = 'down';
       }
     } else {
