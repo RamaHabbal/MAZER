@@ -20,6 +20,11 @@ class Scene1 extends Phaser.Scene {
             frameHeight: 50,
         });
 
+        this.load.spritesheet('ghost', './src/assets/images/ghosts.png', {
+              frameWidth: 41,
+              frameHeight: 48,
+        });
+
         this.load.image('wall', './src/assets/images/wall.jpeg');
         this.load.image('ground', './src/assets/images/ground.jpeg');
         this.load.audio('audio', './src/assets/music/Peder_B_Helland_Darkness.m4a');
