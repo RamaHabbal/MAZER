@@ -1,17 +1,4 @@
 
-function idleDirection(direction){
-    switch (direction) {
-      case 'up':
-        return 10;
-      case 'down':
-        return 1;
-      case 'left':
-        return 3;
-      case 'right':
-        return 7;
-        
-    }
-  }
 class Scene4 extends Phaser.Scene{
     constructor(){
         super("level2")
