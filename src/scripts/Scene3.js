@@ -5,19 +5,6 @@ let ESCtext, scoreText;
 let character;
 let direction = 'down';
 
-function idleDirection(direction) {
-  switch (direction) {
-    case 'up':
-      return 10;
-    case 'down':
-      return 1;
-    case 'left':
-      return 3;
-    case 'right':
-      return 7;
-  }
-}
-
 let player;
 class Scene3 extends Phaser.Scene {
   constructor() {
@@ -52,57 +39,10 @@ class Scene3 extends Phaser.Scene {
     this.renderTiles(x, y, mazeMap, TILESIZE);
 
     this.cameras.main.setBackgroundColor('#C7671B');
-    // character = this.physics.add.sprite(48, 48, 'character');
-    // character.setPosition(-150, 90);
-    // this.physics.world.setBoundsCollision(true, true, true, true);
-    // character.setCollideWorldBounds(true);
-
-    // character.setInteractive();
-
-    // this.anims.create({
-    //   key: 'up',
-    //   frames: this.anims.generateFrameNumbers('character', {
-    //     start: 9,
-    //     end: 11,
-    //   }),
-    //   frameRate: 10,
-    //   repeat: -1,
-    // });
-    // this.anims.create({
-    //   key: 'down',
-    //   frames: this.anims.generateFrameNumbers('character', {
-    //     start: 0,
-    //     end: 2,
-    //   }),
-    //   frameRate: 10,
-    //   repeat: -1,
-    // });
-    // this.anims.create({
-    //   key: 'left',
-    //   frames: this.anims.generateFrameNumbers('character', {
-    //     start: 3,
-    //     end: 5,
-    //   }),
-    //   frameRate: 10,
-    //   repeat: -1,
-    // });
-
-    // this.anims.create({
-    //   key: 'right',
-    //   frames: this.anims.generateFrameNumbers('character', {
-    //     start: 6,
-    //     end: 8,
-    //   }),
-    //   frameRate: 10,
-    //   repeat: -1,
-    // });
 
     this.cameras.main.setBounds(0, 0, 800, 600);
     this.cameras.main.startFollow(player);
     this.cameras.main.setZoom(1);
-
-    // this.physics.add.Collider(character,wallsLayer);
-    // house=this.add.image(0, 0, 'house').setPosition(this.cameras.main.centerX, this.cameras.main.centerY);
 
     if (score <= 999) {
       scoreText = this.add.text(700, 170, 'SCORE:' + score.toString(), {
@@ -127,8 +67,6 @@ class Scene3 extends Phaser.Scene {
     ESCtext.setDepth(1);
   }
 
-  ////////
-
   swapZeros(arr) {
     arr.forEach((row, i) => {
       row.forEach((v, i, a) => {
@@ -150,8 +88,6 @@ class Scene3 extends Phaser.Scene {
     let wallTile = wallsMap.addTilesetImage('wall');
     wallsLayer = wallsMap.createStaticLayer(0, wallTile, 400, 400);
     wallsLayer.setDisplaySize(width, height);
-
-    //for loop to add collision to each wall block --to do here
 
     // Floor
     this.swapZeros(maze); // swaps 0 - 1
@@ -192,47 +128,5 @@ class Scene3 extends Phaser.Scene {
       //this is to pause character
       //this.scene.pause();
     }
-
-    // if (movementup) {
-    //   character.anims.play('up', true); // Play 'up' animation
-    //   character.y -= 2;
-    //   direction = 'up';
-    //   if (movementright) {
-    //     character.anims.play('up', true); // Play 'right' animation
-    //     character.x += 2;
-    //     direction = 'right';
-    //   }
-    //   if (movementleft) {
-    //     character.anims.play('up', true); // Play 'left' animation
-    //     character.x -= 2;
-    //     direction = 'left';
-    //   }
-    // } else if (movementdown) {
-    //   character.anims.play('down', true); // Play 'down' animation
-    //   character.y += 2;
-    //   direction = 'down';
-    //   if (movementright) {
-    //     character.anims.play('down', true); // Play 'right' animation
-    //     character.x += 2;
-    //     direction = 'right';
-    //   }
-    //   if (movementleft) {
-    //     character.anims.play('down', true); // Play 'left' animation
-    //     character.x -= 2;
-    //     direction = 'left';
-    //   }
-    // } else if (movementleft) {
-    //   character.anims.play('left', true); // Play 'left' animation
-    //   character.x -= 2;
-    //   direction = 'left';
-    // } else if (movementright) {
-    //   character.anims.play('right', true); // Play 'right' animation
-    //   character.x += 2;
-    //   direction = 'right';
-    // } else {
-    //   character.anims.stop(); // Stop the animation
-    //   character.setTexture('character', idleDirection(direction)); // Set a specific frame for idle state
-    // }
-    //winning condition was met{load map 2}
   }
 }
