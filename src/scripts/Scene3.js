@@ -30,12 +30,12 @@ class Scene3 extends Phaser.Scene {
         let TILESIZE = 45;
         // const vTiles = Math.floor(this.game.config.height / TILESIZE - 1);
         // const hTiles = Math.floor(this.game.config.width / TILESIZE - 1);
-        const vTiles = 18;
-        const hTiles = 24;
+        const vTiles = 23;
+        const hTiles = 23;
         // const mapHeight = Math.floor((vTiles - 1) / 2);
         // const mapWidth = Math.floor((hTiles - 1) / 2);
-        const mapHeight = 10;
-        const mapWidth = 10;
+        const mapHeight = 11;
+        const mapWidth = 11;
         // Creates a maze object to make mazes of 10x10 cells
         const maze = new Maze(mapHeight, mapWidth);
         // Maze start in position: column 0, row 1
@@ -54,7 +54,7 @@ class Scene3 extends Phaser.Scene {
         character = this.physics.add.sprite(48, 48, 'character');
         portal = this.physics.add.sprite(100, 48, 'portal');
         character.setPosition(-150,90);
-        portal.setPosition(900,970);
+        portal.setPosition(990,940);
         this.physics.world.setBoundsCollision(true, true, true, true);
         character.setCollideWorldBounds(true);
 
@@ -62,7 +62,7 @@ class Scene3 extends Phaser.Scene {
         character.setInteractive();
 
         portal.displayWidth = 70;
-        portal.displayHeight = 60;
+        portal.displayHeight = 70;
 
         portal.setImmovable(true);
         portal.setInteractive();
