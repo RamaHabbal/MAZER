@@ -74,7 +74,7 @@ function renderTiles(x, y, maze, tilesize) {
 
 
 
-
+let audio1 ;
 
 
 class Scene2 extends Phaser.Scene {
@@ -82,12 +82,13 @@ class Scene2 extends Phaser.Scene {
         super("Menu");
     }
     create(){
-        
+        audio1 = this.sound.add('audio', { loop: true, autoplay: true});
+        audio1.play();
         let video1=this.add.video(0, 0, 'video').setPosition(this.cameras.main.centerX, this.cameras.main.centerY);
-        video1.scale = 0.6;
+        video1.scale = 0.7;
         video1.play(true,0,15);   
        
-        let img = this.add.image(450,200,'image', './src/assets/images/logomaze.png').setDisplaySize(400,150);
+        this.add.image(500,100,'image', './src/assets/images/logomaze.png').setDisplaySize(400,150);
 
         
         const startgame = new Button(this.cameras.main.centerX, 370, 'Start Game', this, () => this.scene.start("Gaming"));
@@ -100,7 +101,7 @@ class Scene2 extends Phaser.Scene {
 
 class Button {
     constructor(x, y, label, scene, callback) {
-        const button = scene.add.text(x, y, label)
+        let button = scene.add.text(x, y, label)
             .setOrigin(0.5)
             .setPadding(20)
             .setStyle({ backgroundColor: '#111', font:'35px', margin:'0px' })

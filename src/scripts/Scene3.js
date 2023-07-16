@@ -14,7 +14,9 @@ let direction='down';
         
     }
   }
-  
+  let wallsLayer;
+  let floorLayer;
+  let ESCtext, scoreText;
 class Scene3 extends Phaser.Scene {
     constructor(){
         super("Gaming");
@@ -24,15 +26,16 @@ class Scene3 extends Phaser.Scene {
 
       
     create(){
+       audio1.stop();
         let TILESIZE = 45;
         // const vTiles = Math.floor(this.game.config.height / TILESIZE - 1);
         // const hTiles = Math.floor(this.game.config.width / TILESIZE - 1);
-        const vTiles = 13;
-        const hTiles = 11;
+        const vTiles = 19;
+        const hTiles = 24;
         // const mapHeight = Math.floor((vTiles - 1) / 2);
         // const mapWidth = Math.floor((hTiles - 1) / 2);
-        const mapHeight = 6;
-        const mapWidth = 6;
+        const mapHeight = 10;
+        const mapWidth = 10;
         // Creates a maze object to make mazes of 10x10 cells
         const maze = new Maze(mapHeight, mapWidth);
         // Maze start in position: column 0, row 1
@@ -46,59 +49,7 @@ class Scene3 extends Phaser.Scene {
         const y = Math.round((this.game.config.height - TILESIZE * vTiles) / 2);
     
         this.renderTiles(x, y, mazeMap, TILESIZE);
-
-        this.cameras.main.setBounds(0,0,860,640);
-        this.cameras.main.startFollow(character);
-        this.cameras.main.setZoom(1.3);
-
-    }
-    swapZeros(arr) {
-      arr.forEach((row, i) => {
-        row.forEach((v, i, a) => {
-          a[i] = a[i] ? 0 : 1;
-        });
-      });
-    }
-    renderTiles(x, y, maze, tilesize) {
-      const width = tilesize * maze[0].length;
-      const height = tilesize * maze.length;
-  
-      // Walls
-      let wallsMap = this.make.tilemap({
-        data: maze,
-        tileWidth: 50,
-        tileHeight: 50,
-      });
-      console.log(wallsMap);
-      let wallTile = wallsMap.addTilesetImage('wall');
-      let wallsLayer = wallsMap.createStaticLayer(0, wallTile, x, y);
-      wallsLayer.setDisplaySize(width, height);
-
-      //for loop to add collision to each wall block --to do here
-  
-      // Floor
-      this.swapZeros(maze); // swaps 0 - 1
-      let floorMap = this.make.tilemap({
-        data: maze,
-        tileWidth: 50,
-        tileHeight: 50,
-      });
-      let floorTile = floorMap.addTilesetImage('ground');
-      let floorLayer = floorMap.createDynamicLayer(0, floorTile, x, y);
-  
-      floorLayer.setDisplaySize(width, height);
-  
-      // Shadows
-      const offset = 0.2 * tilesize;
-      let rt = this.add.renderTexture(x + offset, y + offset, width, height);
-      rt.draw(wallsLayer, 0, 0);
-      rt.setAlpha(0.4);
-      rt.setTint(0);
-  
-      // Move walls to front
-      wallsLayer.setDepth(rt.depth + 1);
-  
-
+        
         this.cameras.main.setBackgroundColor('#C7671B');
         character = this.physics.add.sprite(48, 48, 'character');
         character.setPosition(-150,90);
@@ -133,24 +84,74 @@ class Scene3 extends Phaser.Scene {
             repeat: -1,
         });
 
-        character.x += 300;
-        const menu = new Button(70, 40, 'Menu', this, () => this.scene.start("Menu"));
-
- 
-
-        // this.physics.add.collider(this.character,wallsLayer);
-   
-        // SetCollisionByProperty(properties, collides, recalculateFaces, layer)
         
 
-        //this.physics.add.collider(this.projectiles,this.powerUps)
-        //projectile.destroy();
-        //overlap
+        this.cameras.main.setBounds(0,0,1000,1000);
+        this.cameras.main.startFollow(character);
+        this.cameras.main.setZoom(1.5);
+        
+        
+        scoreText = this.add.text(100, 100, "SCORE: 0", {fontSize: '56px', color: '#fff'});
+        ESCtext = this.add.text(100, 100, "press 'ESC' to leave", {fontSize: '56px', color: '#fff'});
+        // this.physics.add.Collider(character,wallsLayer);
+
+
+
+    }
+
+    ////////
+
+
+    swapZeros(arr) {
+      arr.forEach((row, i) => {
+        row.forEach((v, i, a) => {
+          a[i] = a[i] ? 0 : 1;
+        });
+      });
+    }
+    renderTiles(x, y, maze, tilesize) {
+      const width = tilesize * maze[0].length;
+      const height = tilesize * maze.length;
+  
+      // Walls
+      let wallsMap = this.make.tilemap({
+        data: maze,
+        tileWidth: 50,
+        tileHeight: 50,
+      });
+      console.log(wallsMap);
+      let wallTile = wallsMap.addTilesetImage('wall');
+      wallsLayer = wallsMap.createStaticLayer(0, wallTile, x, y);
+      wallsLayer.setDisplaySize(width, height);
+
+      //for loop to add collision to each wall block --to do here
+  
+      // Floor
+      this.swapZeros(maze); // swaps 0 - 1
+      let floorMap = this.make.tilemap({
+        data: maze,
+        tileWidth: 50,
+        tileHeight: 50,
+      });
+      let floorTile = floorMap.addTilesetImage('ground');
+      floorLayer = floorMap.createDynamicLayer(0, floorTile, x, y);
+  
+      floorLayer.setDisplaySize(width, height);
+  
+      // Shadows
+      const offset = 0.2 * tilesize;
+      let rt = this.add.renderTexture(x + offset, y + offset, width, height);
+      rt.draw(wallsLayer, 0, 0);
+      rt.setAlpha(0.4);
+      rt.setTint(0);
+  
+      // Move walls to front
+      wallsLayer.setDepth(rt.depth + 1);
 
 }
 
 
-
+///////
 
 
     update() {
@@ -160,7 +161,24 @@ class Scene3 extends Phaser.Scene {
         let movementdown = cursors.down.isDown;
         let movementleft = cursors.left.isDown;
         let movementright = cursors.right.isDown;
+        
+        scoreText.x = character.body.position.x;
+        scoreText.y = character.body.position.y;  
+      
+        ESCtext.x = character.body.position.x-100;
+        ESCtext.y = character.body.position.y-100;  
+      
+        let menusettings = this.input.keyboard.addKey('Esc');
+        if(menusettings.isDown){
+            this.scene.launch('settings');
             
+        };
+
+        
+       
+
+
+
         if (movementup) {
             
             character.anims.play('up', true); // Play 'up' animation
@@ -168,12 +186,12 @@ class Scene3 extends Phaser.Scene {
             direction = 'up';
             if (movementright) {
             
-                character.anims.play('right', true); // Play 'right' animation
+                character.anims.play('up', true); // Play 'right' animation
                 character.x += 3;
                 direction = 'right';
                 }
             if (movementleft) {
-                    character.anims.play('left', true); // Play 'left' animation
+                    character.anims.play('up', true); // Play 'left' animation
                     character.x -= 3;
                     direction = 'left';
                 }
@@ -184,12 +202,12 @@ class Scene3 extends Phaser.Scene {
             direction = 'down';
             if (movementright) {
             
-                character.anims.play('right', true); // Play 'right' animation
+                character.anims.play('down', true); // Play 'right' animation
                 character.x += 3;
                 direction = 'right';
                 }
             if (movementleft) {
-                    character.anims.play('left', true); // Play 'left' animation
+                    character.anims.play('down', true); // Play 'left' animation
                     character.x -= 3;
                     direction = 'left';
                 }
