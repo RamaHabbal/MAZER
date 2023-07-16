@@ -6,20 +6,23 @@ let character;
 let direction='down';
 let ghost;let Timertext;
 let timestart=14;
+let wallsMap;
+let ghostScale;
+let mapScale;
 
- function idleDirection(direction){
-    switch (direction) {
-      case 'up':
-        return 10;
-      case 'down':
-        return 1;
-      case 'left':
-        return 3;
-      case 'right':
-        return 7;
+//  function idleDirection(direction){
+//     switch (direction) {
+//       case 'up':
+//         return 10;
+//       case 'down':
+//         return 1;
+//       case 'left':
+//         return 3;
+//       case 'right':
+//         return 7;
         
-    }
-  }
+//     }
+//   }
 
 class Scene3 extends Phaser.Scene {
     constructor(){
@@ -50,24 +53,29 @@ class Scene3 extends Phaser.Scene {
     
         const x = Math.round((this.game.config.width - TILESIZE * hTiles) / 2);
         const y = Math.round((this.game.config.height - TILESIZE * vTiles) / 2);
-    
+        this.swapZeros(mazeMap);
         this.renderTiles(x, y, mazeMap, TILESIZE);
         
+
+
         this.cameras.main.setBackgroundColor('#C7671B');
-        character = this.physics.add.sprite(48, 48, 'character');
+        // character = this.physics.add.sprite(48, 48, 'character');
         portal = this.physics.add.sprite(100, 48, 'portal');
         ghost = this.physics.add.sprite(0, 0, 'ghost');
 
-        character.setPosition(10,50);
+        wallsLayer.setCollision(1,true);
+        character=new Player(this,10,50,'character');
+        this.physics.add.collider(wallsLayer,character);
+
+        // character.setPosition(10,50);
         portal.setPosition(985,940);
         ghost.setPosition(-10,0);
 
         this.physics.world.setBoundsCollision(true, true, true, true);
         character.setCollideWorldBounds(true);
 
-        character.setImmovable(true);
-        character.setInteractive();
-
+      
+        
         portal.displayWidth = 70;
         portal.displayHeight = 70;
 
@@ -202,7 +210,7 @@ class Scene3 extends Phaser.Scene {
       const height = tilesize * maze.length;
   
       // Walls
-      let wallsMap = this.make.tilemap({
+       wallsMap = this.make.tilemap({
         data: maze,
         tileWidth: 50,
         tileHeight: 50,
@@ -215,7 +223,8 @@ class Scene3 extends Phaser.Scene {
       //for loop to add collision to each wall block --to do here
   
       // Floor
-      this.swapZeros(maze); // swaps 0 - 1
+       // swaps 0 - 1
+       this.swapZeros(maze);
       let floorMap = this.make.tilemap({
         data: maze,
         tileWidth: 50,
@@ -225,134 +234,140 @@ class Scene3 extends Phaser.Scene {
       floorLayer = floorMap.createDynamicLayer(0, floorTile, x, y);
   
       floorLayer.setDisplaySize(width, height);
+      
   
-      // Shadows
-      const offset = 0.2 * tilesize;
-      let rt = this.add.renderTexture(x + offset, y + offset, width, height);
-      rt.draw(wallsLayer, 0, 0);
-      rt.setAlpha(0.4);
-      rt.setTint(0);
+      // // Shadows
+      // const offset = 0.2 * tilesize;
+      // let rt = this.add.renderTexture(x + offset, y + offset, width, height);
+      // rt.draw(wallsLayer, 0, 0);
+      // rt.setAlpha(0.4);
+      // rt.setTint(0);
   
       // Move walls to front
-      wallsLayer.setDepth(rt.depth + 1);
+      wallsLayer.setDepth(-1);
+      floorLayer.setDepth(-1);
 }
+update(){
 
+  character.update();
+
+}
 ///////
 
-    update() {
-        // Update the game state...
-        let cursors = this.input.keyboard.createCursorKeys();
-        let movementup = cursors.up.isDown;
-        let movementdown = cursors.down.isDown;
-        let movementleft = cursors.left.isDown;
-        let movementright = cursors.right.isDown;
+//     update() {
+//         // Update the game state...
+//         // let cursors = this.input.keyboard.createCursorKeys();
+//         // let movementup = cursors.up.isDown;
+//         // let movementdown = cursors.down.isDown;
+//         // let movementleft = cursors.left.isDown;
+//         // let movementright = cursors.right.isDown;
         
-        let movementW=this.input.keyboard.addKey('W').isDown;
-        let movementA=this.input.keyboard.addKey('A').isDown;
-        let movementS=this.input.keyboard.addKey('S').isDown;
-        let movementD=this.input.keyboard.addKey('D').isDown;
+//         let movementW=this.input.keyboard.addKey('W').isDown;
+//         let movementA=this.input.keyboard.addKey('A').isDown;
+//         let movementS=this.input.keyboard.addKey('S').isDown;
+//         let movementD=this.input.keyboard.addKey('D').isDown;
       
-        let menusettings = this.input.keyboard.addKey('Esc');
+//         let menusettings = this.input.keyboard.addKey('Esc');
         
-        if(menusettings.isDown){
-            this.scene.launch('settings');
+//         if(menusettings.isDown){
+//             this.scene.launch('settings');
             
-            //this is to pause character
-           //this.scene.pause();
-        };
+//             //this is to pause character
+//            //this.scene.pause();
+//         };
 
-        console.log("c x: " + character.x);
-        console.log("c y: " + character.y);
-        console.log("portal x: " + portal.x);
-        console.log("portal y: " + portal.y);
+//         // console.log("c x: " + character.x);
+//         // console.log("c y: " + character.y);
+//         // console.log("portal x: " + portal.x);
+//         // console.log("portal y: " + portal.y);
 
-        if(character.body.position.x >= 940 && character.body.position.y >= 900){
-          console.log("inside c x: " + character.x);
-          console.log("inside c y: " + character.y);
-          this.scene.start("Gaming");
-          score+=1;
-          timestart=14;
-        }
+//         // if(character.body.position.x >= 940 && character.body.position.y >= 900){
+//         //   console.log("inside c x: " + character.x);
+//         //   console.log("inside c y: " + character.y);
+//         //   this.scene.start("Gaming");
+//         //   score+=1;
+//         //   timestart=14;
+//         // }
         
 
 
-        if (movementup || movementW ) {
-            character.anims.play('up', true); // Play 'up' animation
-            character.y -= 4;
-            direction = 'up';
+//     //     if (movementup || movementW ) {
+//     //         character.anims.play('up', true); // Play 'up' animation
+//     //         character.y -= 4;
+//     //         direction = 'up';
 
-            ghost.anims.play('ghostUp', true); // Play 'up' animation
+//     //         ghost.anims.play('ghostUp', true); // Play 'up' animation
             
-            ghost.x = character.body.position.x;
-            ghost.y = character.body.position.y + 50;
-            if (movementright ||  movementD) {
+//     //         ghost.x = character.body.position.x;
+//     //         ghost.y = character.body.position.y + 50;
+//     //         if (movementright ||  movementD) {
             
-                character.anims.play('up', true); // Play 'right' animation
-                character.x += 3;
-                direction = 'right';
-                }
-            if (movementleft ||  movementA) {
-                    character.anims.play('up', true); // Play 'left' animation
-                    character.x -= 3;
-                    direction = 'left';
-                }
-        }
-        else if (movementdown || movementS) {
-          character.anims.play('down', true); // Play 'down' animation
-          character.y += 4;
-          direction = 'down';
+//     //             character.anims.play('up', true); // Play 'right' animation
+//     //             character.x += 3;
+//     //             direction = 'right';
+//     //             }
+//     //         if (movementleft ||  movementA) {
+//     //                 character.anims.play('up', true); // Play 'left' animation
+//     //                 character.x -= 3;
+//     //                 direction = 'left';
+//     //             }
+//     //     }
+//     //     else if (movementdown || movementS) {
+//     //       character.anims.play('down', true); // Play 'down' animation
+//     //       character.y += 4;
+//     //       direction = 'down';
 
-          ghost.anims.play('ghostDown', true); // Play 'up' animation
+//     //       ghost.anims.play('ghostDown', true); // Play 'up' animation
           
-          ghost.x = character.body.position.x;
-          ghost.y = character.body.position.y - 50;
+//     //       ghost.x = character.body.position.x;
+//     //       ghost.y = character.body.position.y - 50;
 
-          if (movementright || movementD) {
-            character.anims.play('down', true); // Play 'right' animation
-            character.x += 3;
-            direction = 'right';
+//     //     //   if (movementright || movementD) {
+//     //     //     character.anims.play('down', true); // Play 'right' animation
+//     //     //     character.x += 3;
+//     //     //     direction = 'right';
 
-            ghost.anims.play('ghostRight', true); // Play 'up' animation
+//     //     //     ghost.anims.play('ghostRight', true); // Play 'up' animation
             
-            ghost.x = character.body.position.x - 50;
-            ghost.y = character.body.position.y;
-          }
-          if (movementleft || movementA) {
-            character.anims.play('down', true); // Play 'left' animation
-            character.x -= 3;
-            direction = 'left';
+//     //     //     ghost.x = character.body.position.x - 50;
+//     //     //     ghost.y = character.body.position.y;
+//     //     //   }
+//     //     //   if (movementleft || movementA) {
+//     //     //     character.anims.play('down', true); // Play 'left' animation
+//     //     //     character.x -= 3;
+//     //     //     direction = 'left';
 
-            ghost.anims.play('ghostLeft', true); // Play 'up' animation
+//     //     //     ghost.anims.play('ghostLeft', true); // Play 'up' animation
             
-            ghost.x = character.body.position.x + 90;
-            ghost.y = character.body.position.y;
-          }
-        }
-        else if (movementleft || movementA) {
-          character.anims.play('left', true); // Play 'left' animation
-          character.x -= 4;
-          direction = 'left';
+//     //     //     ghost.x = character.body.position.x + 90;
+//     //     //     ghost.y = character.body.position.y;
+//     //     //   }
+//     //     // }
+//     //     // else if (movementleft || movementA) {
+//     //     //   character.anims.play('left', true); // Play 'left' animation
+//     //     //   character.x -= 4;
+//     //     //   direction = 'left';
 
-          ghost.anims.play('ghostLeft', true); // Play 'up' animation
+//     //     //   ghost.anims.play('ghostLeft', true); // Play 'up' animation
           
-          ghost.x = character.body.position.x + 90;
-          ghost.y = character.body.position.y;
-        }
-        else if (movementright || movementD) {
-          character.anims.play('right', true); // Play 'right' animation
-          character.x += 4;
-          direction = 'right';
+//     //     //   ghost.x = character.body.position.x + 90;
+//     //     //   ghost.y = character.body.position.y;
+//     //     // }
+//     //     // else if (movementright || movementD) {
+//     //     //   character.anims.play('right', true); // Play 'right' animation
+//     //     //   character.x += 4;
+//     //     //   direction = 'right';
 
-          ghost.anims.play('ghostRight', true); // Play 'up' animation
+//     //     //   ghost.anims.play('ghostRight', true); // Play 'up' animation
           
-          ghost.x = character.body.position.x - 50;
-          ghost.y = character.body.position.y;
-        } 
-        else {
-        character.anims.stop(); // Stop the animation
-        character.setTexture('character', idleDirection(direction)); // Set a specific frame for idle state
-        }
-        //winning condition was met{load map 2}
-    }
+//     //     //   ghost.x = character.body.position.x - 50;
+//     //     //   ghost.y = character.body.position.y;
+//     //     // } 
+//     //     // else {
+//     //     // character.anims.stop(); // Stop the animation
+//     //     // character.setTexture('character', idleDirection(direction)); // Set a specific frame for idle state
+//     //     // }
+//     //     //winning condition was met{load map 2}
+//     // }
         
 }

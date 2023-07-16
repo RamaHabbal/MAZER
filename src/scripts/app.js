@@ -23,7 +23,7 @@ let config = {
     arcade: {
       // Configure the Arcade Physics settings
       gravity: { y: 0 }, // Disable gravity for a top-down maze game
-      debug: false, // Set to true for debugging collision boundaries
+      debug: true, // Set to true for debugging collision boundaries
     },
   },
 };
