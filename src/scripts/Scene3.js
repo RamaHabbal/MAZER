@@ -1,6 +1,6 @@
 let wallsLayer;
 let floorLayer;
-let house;
+let portal;
 let ESCtext, scoreText;
 let character;
 let direction='down';
@@ -25,9 +25,6 @@ class Scene3 extends Phaser.Scene {
         super("Gaming");
     }
 
-
-
-      
     create(){
        audio1.stop();
         let TILESIZE = 45;
@@ -55,11 +52,21 @@ class Scene3 extends Phaser.Scene {
         
         this.cameras.main.setBackgroundColor('#C7671B');
         character = this.physics.add.sprite(48, 48, 'character');
+        portal = this.physics.add.sprite(100, 48, 'portal');
         character.setPosition(-150,90);
+        portal.setPosition(900,970);
         this.physics.world.setBoundsCollision(true, true, true, true);
         character.setCollideWorldBounds(true);
 
+        character.setImmovable(true);
         character.setInteractive();
+
+        portal.displayWidth = 70;
+        portal.displayHeight = 60;
+
+        portal.setImmovable(true);
+        portal.setInteractive();
+        portal.setDepth(2);
 
         this.anims.create({
             key: 'up',
@@ -87,7 +94,14 @@ class Scene3 extends Phaser.Scene {
             repeat: -1,
         });
 
-        
+        this.anims.create({
+          key: 'portalAnimation', // Custom animation key
+          frames: this.anims.generateFrameNumbers('portal', { start: 0, end: 2 }),
+          frameRate: 5, // Adjust the frame rate as needed
+          repeat: -1, // Repeat indefinitely
+        });
+
+        portal.anims.play('portalAnimation');
 
         this.cameras.main.setBounds(0,0,1000,1000);
         this.cameras.main.startFollow(character);
