@@ -172,54 +172,66 @@ class Scene3 extends Phaser.Scene {
     let movementleft = cursors.left.isDown;
     let movementright = cursors.right.isDown;
         
-    let menusettings = this.input.keyboard.addKey('Esc');
-    if(menusettings.isDown){
-      this.scene.launch('settings');
-    };
-    
-    if (movementup) {
-      character.anims.play('up', true); // Play 'up' animation
-      character.y -= 2;
-      direction = 'up';
-      if (movementright) {
-        character.anims.play('up', true); // Play 'right' animation
-        character.x += 2;
-        direction = 'right';
-      }
       
-      if (movementleft) {
-        character.anims.play('up', true); // Play 'left' animation
+      
+        let menusettings = this.input.keyboard.addKey('Esc');
+        if(menusettings.isDown){
+            this.scene.launch('settings');
+            
+            //this is to pause character
+           //this.scene.pause();
+            
+        };
+
+        
+        
+
+
+        if (movementup) {
+            
+            character.anims.play('up', true); // Play 'up' animation
+            character.y -= 2;
+            direction = 'up';
+            if (movementright) {
+            
+                character.anims.play('up', true); // Play 'right' animation
+                character.x += 2;
+                direction = 'right';
+                }
+            if (movementleft) {
+                    character.anims.play('up', true); // Play 'left' animation
+                    character.x -= 2;
+                    direction = 'left';
+                }
+        }
+        else if (movementdown) {
+            character.anims.play('down', true); // Play 'down' animation
+            character.y += 2;
+            direction = 'down';
+            if (movementright) {
+            
+                character.anims.play('down', true); // Play 'right' animation
+                character.x += 2;
+                direction = 'right';
+                }
+            if (movementleft) {
+                    character.anims.play('down', true); // Play 'left' animation
+                    character.x -= 2;
+                    direction = 'left';
+                }
+        }
+        else if (movementleft) {
+        character.anims.play('left', true); // Play 'left' animation
         character.x -= 2;
         direction = 'left';
-      }
-    }
-    else if (movementdown) {
-      character.anims.play('down', true); // Play 'down' animation
-      character.y += 2;
-      direction = 'down';
-      if (movementright) {
-        character.anims.play('down', true); // Play 'right' animation
+        }
+        else if (movementright) {
+            
+        character.anims.play('right', true); // Play 'right' animation
         character.x += 2;
         direction = 'right';
-      }
-      
-      if (movementleft) {
-        character.anims.play('down', true); // Play 'left' animation
-        character.x -= 2;
-        direction = 'left';
-      }
-    }
-    else if (movementleft) {
-      character.anims.play('left', true); // Play 'left' animation
-      character.x -= 2;
-      direction = 'left';
-    }
-    else if (movementright) {
-      character.anims.play('right', true); // Play 'right' animation
-      character.x += 2;
-      direction = 'right';
-    } 
-    else {
+      } 
+      else {
       character.anims.stop(); // Stop the animation
       character.setTexture('character', idleDirection(direction)); // Set a specific frame for idle state
     }
