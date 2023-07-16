@@ -1,0 +1,92 @@
+*,
+*::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+Html,
+body {
+  width: 100vw;
+  height: 100%;
+}
+.main-container {
+  position: relative;
+}
+
+.moonlit {
+  z-index: 1;
+  background-image: url('../assets/images/landing-page/Sky.png');
+  background-size: cover;
+  margin-bottom: -200px;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+}
+
+.logo {
+  position: fixed;
+  z-index: 2;
+  min-width: 200px;
+  width: 30vw;
+  top: 40%;
+  left: 50%;
+  animation: float 5s ease-in-out infinite;
+}
+
+canvas {
+  filter: blur(1px);
+}
+
+.forest {
+  position: relative;
+  z-index: 3;
+  height: 120vh;
+  width: 100%;
+  background-image: url('../assets/images/landing-page/Forest.png');
+  background-position: top;
+  background-size: cover;
+}
+
+.red-riding {
+  width: 200px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+}
+.play-game {
+  position: absolute;
+  top: 53%;
+  left: 50%;
+  z-index: 5;
+  border: none;
+  border-radius: 10px;
+  padding: 0.4rem 1.5rem;
+  transform: translateX(-50%);
+  background-color: #d05d00;
+  font-family: 'Jolly Lodger', cursive;
+  font-size: 1.5rem;
+  opacity: 0;
+  transition: opacity 1s;
+}
+.show {
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+.play-game a {
+  text-decoration: none;
+  color: inherit;
+}
+@keyframes float {
+  0% {
+    transform: translatey(0px) translateX(-50%);
+  }
+  50% {
+    transform: translatey(-20px) translateX(-50%);
+  }
+  100% {
+    transform: translatey(0px) translateX(-50%);
+  }
+}
