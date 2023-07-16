@@ -95,13 +95,13 @@ class Scene2 extends Phaser.Scene {
        
         this.add.image(500,100,'image', './src/assets/images/logomaze.png').setDisplaySize(400,150);
         
-        this.add.text(this.cameras.main.centerX-120, 250, ' HIGHEST SCORE:', { 
-          fontSize: '30px', color: 'black'
-        });
+        this.add.text(0,250, ' HIGHEST SCORE:', { 
+          color: 'black', font: '40px bolder',
+        }).setOrigin(-1,0.5);
         this.add.text(this.cameras.main.centerX-10, 300, score.toString(), { 
-          fontSize: '30px', color: 'black'
+          font: '50px bolder', color: 'black'
         });
-        const startgame = new Button(this.cameras.main.centerX, 370, 'Start Game', this, () => this.scene.start("story"));
+        const startgame = new Button(this.cameras.main.centerX, 400, 'Start Game', this, () => this.scene.start("story"));
         
         
            
