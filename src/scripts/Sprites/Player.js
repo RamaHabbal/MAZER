@@ -106,7 +106,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     let upY=-this.speed, downY=this.speed, rightX=this.speed, leftX=-this.speed;
     let GupY=80, GdownY=-80, GleftX=80, GrightX=-80;
 
-    if (score % 3 == 0 ) {
+    if (score % 3 == 0 && score != 0) {
       up = 'down', down = 'up', left = 'right', right = 'left';
 
       ghostUp = 'ghostDown', ghostDown = 'ghostUp', ghostLeft = 'ghostRight', ghostRight = 'ghostLeft';
@@ -117,7 +117,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
       GupY = -80, GdownY = 80, GleftX = -80, GrightX = 80;
     }
-    
+
     if (movement_up || movementW) {
       this.anims.play(up, true); // Play 'up' animation
       this.setVelocity(0, upY);
