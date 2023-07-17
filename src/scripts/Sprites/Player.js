@@ -1,5 +1,5 @@
 class Player extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y, texture, ghost) {
+  constructor(scene, x, y, texture) {
     super(scene, x, y, texture);
 
     scene.add.existing(this);
@@ -44,6 +44,34 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       }),
       frameRate: 10,
       repeat: -1,
+    });
+
+    scene.anims.create({
+      key: 'ghostUp', // Custom animation key
+      frames: scene.anims.generateFrameNumbers('ghost', { start: 3, end: 3 }),
+      frameRate: 5, // Adjust the frame rate as needed
+      repeat: -1, // Repeat indefinitely
+    });
+
+    scene.anims.create({
+      key: 'ghostDown', // Custom animation key
+      frames: scene.anims.generateFrameNumbers('ghost', { start: 0, end: 0 }),
+      frameRate: 5, // Adjust the frame rate as needed
+      repeat: -1, // Repeat indefinitely
+    });
+
+    scene.anims.create({
+      key: 'ghostRight', // Custom animation key
+      frames: scene.anims.generateFrameNumbers('ghost', { start: 2, end: 2 }),
+      frameRate: 5, // Adjust the frame rate as needed
+      repeat: -1, // Repeat indefinitely
+    });
+
+    scene.anims.create({
+      key: 'ghostLeft', // Custom animation key
+      frames: scene.anims.generateFrameNumbers('ghost', { start: 1, end: 1 }),
+      frameRate: 5, // Adjust the frame rate as needed
+      repeat: -1, // Repeat indefinitely
     });
   }
 
