@@ -3,14 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="//cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.js"></script>
-    <link rel="stylesheet" href="src/styles/index.css" />
-    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jolly+Lodger&family=Rubik:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+      integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+	<link rel="icon" type="image/x-icon" href="./src/assets/images/favicon.ico">
+    <link rel="stylesheet" href="./src/styles/index.css" />
+    <title>MAZER</title>
   </head>
   <body>
-    <div class="wrapper">
-      <div id="game-container"></div>
-    </div>
-    <script src="./src/scripts/app.js"></script>
+    <main class="main-container">
+      <div class="logo-container">
+        <img
+          class="logo"
+          src="./src/assets/images/landing-page/MazerLogo.png"
+          alt=""
+        />
+      </div>
+      <div class="moonlit"></div>
+      <div id="forest" class="forest">
+        <canvas id="canvas"></canvas>
+        <button id="button" class="play-game">
+          <a href="mazer.html">Play Game</a>
+        </button>
+      </div>
+    </main>
+    <script src="./src/scripts/index.js"></script>
   </body>
 </html>
