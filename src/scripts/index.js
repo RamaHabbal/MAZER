@@ -1,5 +1,5 @@
 window.onload = () => {
-  document.addEventListener('scroll', function () {
+  document.addEventListener("scroll", function () {
     const scroll_position = window.scrollY;
     const window_height = window.innerHeight;
     const document_height = document.documentElement.scrollHeight;
@@ -8,15 +8,15 @@ window.onload = () => {
       // Show the scroll button
       console.log(scroll_position + window_height);
       setTimeout(() => {
-        $('.play-game').addClass('show');
+        $(".play-game").addClass("show");
       }, 400);
     } else {
-      $('.play-game').removeClass('show');
+      $(".play-game").removeClass("show");
     }
   });
 };
 //Fire-fly animation
-let c = init('canvas');
+let c = init("canvas");
 w = canvas.width = window.innerWidth;
 h = canvas.height = window.innerHeight;
 
@@ -36,7 +36,7 @@ class firefly {
   show() {
     c.beginPath();
     c.arc(this.x, this.y, this.s, 0, 2 * Math.PI);
-    c.fillStyle = '#fddba3';
+    c.fillStyle = "#fddba3";
     c.fill();
   }
 }
@@ -60,10 +60,10 @@ function draw() {
 
 function init(elemid) {
   let canvas = document.getElementById(elemid),
-    c = canvas.getContext('2d'),
+    c = canvas.getContext("2d"),
     w = (canvas.width = window.innerWidth),
     h = (canvas.height = window.innerHeight);
-  c.fillStyle = 'rgba(30, 30, 30, 1)';
+  c.fillStyle = "rgba(30, 30, 30, 1)";
   c.fillRect(0, 0, w, h);
   return c;
 }
@@ -81,7 +81,7 @@ function loop() {
   c.clearRect(0, 0, w, h);
   draw();
 }
-window.addEventListener('resize', function () {
+window.addEventListener("resize", function () {
   (w = canvas.width = window.innerWidth),
     (h = canvas.height = window.innerHeight);
   loop();

@@ -21,12 +21,6 @@ function setCookie(cname, cvalue, exdays) {
     return "";
   }
 
-
-
-
-
-////////////////////
-///////////////////
 function renderTiles(x, y, maze, tilesize) {
   const width = tilesize * maze[0].length;
   const height = tilesize * maze.length;
@@ -62,19 +56,8 @@ function renderTiles(x, y, maze, tilesize) {
   this.renderSolution(map);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-let audio1 ;
+let audio1;
+let audio2;
 let score=0;
 let highestscore;
 console.log(getCookie("highestscore"));
@@ -89,27 +72,23 @@ class Scene2 extends Phaser.Scene {
         super("Menu");
     }
     create(){
-        audio1 = this.sound.add('audio', { loop: true, autoplay: true});
-        audio1.play();
-        let video1=this.add.video(0, 0, 'video').setPosition(this.cameras.main.centerX, this.cameras.main.centerY);
-        video1.scale = 0.75;
-        video1.play(true,0,15);   
+      audio1 = this.sound.add('audio', { loop: true, autoplay: true});
+      audio1.play();
+      let video1=this.add.video(0, 0, 'video').setPosition(this.cameras.main.centerX, this.cameras.main.centerY);
+      video1.scale = 0.75;
+      video1.play(true,0,15);   
        
-        this.add.image(500,100,'image', './src/assets/images/logomaze.png').setDisplaySize(400,150);
+      this.add.image(500,100,'image', './src/assets/images/logomaze.png').setDisplaySize(400,150);
         
-        this.add.text(10,250, ' HIGHEST SCORE', { 
-          color: 'black', font: '40px bolder',
-        }).setOrigin(-1,0.5);
-        this.add.text(this.cameras.main.centerX-10, 300, highestscore.toString(), { 
-          font: '50px bolder', color: 'black'
-        });
-        const startgame = new Button(this.cameras.main.centerX+5, 400, 'Start Game', this, () => this.scene.start("story"));
-        
-        
-           
-}}
-
-
+      this.add.text(10,250, ' HIGHEST SCORE', { 
+        color: 'black', font: '40px bolder',
+      }).setOrigin(-1,0.5);
+      this.add.text(this.cameras.main.centerX-10, 300, highestscore.toString(), { 
+        font: '50px bolder', color: 'black'
+      });
+      const startgame = new Button(this.cameras.main.centerX+5, 400, 'Start Game', this, () => this.scene.start("story"));
+    }
+  }
 
 class Button {
     constructor(x, y, label, scene, callback) {
@@ -123,7 +102,3 @@ class Button {
             .on('pointerout', () => button.setStyle({ fill: '#FFF' }));
     }
 }
-
-
-
-    
